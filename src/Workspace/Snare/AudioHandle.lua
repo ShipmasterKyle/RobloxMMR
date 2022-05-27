@@ -52,12 +52,4 @@ function module:StopAllSounds(note)
 	end
 end
 
-function module:SetOctave(Octave)
-	if Octave then
-		local currentOctave = script.Parent.Octave
-		currentOctave.Value = Octave
-		return currentOctave.Value
-	end
-end
-
 return module

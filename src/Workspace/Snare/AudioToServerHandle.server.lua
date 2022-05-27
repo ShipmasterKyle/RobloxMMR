@@ -8,52 +8,12 @@
 --Table for the correct audios seen in the audio group.
 local correctAudio = {
 	A = {
-		Name = "A Natural",
+		Name = "Left",
 		ID = "rbxassetid://9733680911"
 	},
 	Ab = {
-		Name = "A Flat",
+		Name = "Right",
 		ID = "rbxassetid://9733686913"
-	},
-	B = {
-		Name = "B Natural",
-		ID = "rbxassetid://9733672671"
-	},
-	Bb = {
-		Name = "B Flat",
-		ID = "rbxassetid://9733670968"
-	},
-	C = {
-		Name = "C Natural",
-		ID = "rbxassetid://9733667541"
-	},
-	D = {
-		Name = "D Natural",
-		ID = "rbxassetid://9702290636"
-	},
-	Db = {
-		Name = "D Flat",
-		ID = "rbxassetid://9702289638"
-	},
-	E = {
-		Name = "E Natural",
-		ID = "rbxassetid://9702288296"
-	},
-	Eb = {
-		Name = "E Flat",
-		ID = "rbxassetid://9702286947"
-	},
-	F = {
-		Name = "F Natural",
-		ID = "rbxassetid://9702280904"
-	},
-	G = {
-		Name = "G Natural",
-		ID = "rbxassetid://9702279401"
-	},
-	Gb = {
-		Name = "G Flat",
-		ID = "rbxassetid://9702270927"
 	}
 }
 

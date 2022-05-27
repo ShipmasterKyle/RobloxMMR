@@ -14,8 +14,12 @@ local tool = script.Parent
 local copyBox = UI
 
 local hornsUp = script.Parent.HornsUp
-local still = script.Parent.Stand
+local right = script.Parent.Right
+local left = script.Parent.Left
 local animationTrack
+
+local snare = script.Parent.Snare
+local stick = script.Parent.LeftStick
 
 local accentsAllowed = false
 
@@ -70,7 +74,20 @@ tool.Equipped:Connect(function()
 	isActive = true
 	print("Activated")
 	--coroutine.resume(uiEvents)
-	local weld1 = Instance.new()
+	local weld1 = Instance.new("Weld")
+	local weld2 = Instance.new("Weld")
+	local humroot = game.Players.LocalPlayer.Character.HumanoidRootPart
+	local leftHand = game.Players.LocalPlayer.Character.LeftHand
+	snare:SetPrimaryPartCFrame(humroot.CFrame * CFrame.new(0,-2,10))
+	weld1.Part0 = snare
+	weld1.Part1 = humroot
+	weld1.Parent = snare
+	weld1.Name = "Weld1"
+	stick:SetPrimaryPartCFrame(leftHand.CFrame)
+	weld2.Part0 = stick
+	weld2.Part1 = leftHand
+	weld2.Parent = stick
+	weld2.Name = "Weld2"
 	animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(hornsUp)
 	animationTrack:Play()
 	print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
@@ -82,6 +99,8 @@ tool.Unequipped:Connect(function()
 	script.Parent.HangUpAll:FireServer()
 	animationTrack:Stop()
 	copyBox.Parent = workspace
+	snare.Weld1:Destroy()
+	stick.Weld2:Destroy()
 	--coroutine.yield(uiEvents)
 end)
 
@@ -92,8 +111,14 @@ UIS.InputBegan:Connect(function(input,chatting)
 			accentsAllowed = true
 		elseif input.KeyCode == Enum.KeyCode.Q then
 			script.Parent.TalkToServer:FireServer(accentsAllowed,tostring("Left"))
+			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)
+			animationTrack:Play()
+			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 		elseif input.KeyCode == Enum.KeyCode.E then
 			script.Parent.TalkToServer:FireServer(accentsAllowed,tostring("Right"))
+			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(right)
+			animationTrack:Play()
+			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 		end
 	end
 end)
@@ -105,8 +130,10 @@ UIS.InputEnded:Connect(function(input)
 			accentsAllowed = false
 			if input.KeyCode == Enum.KeyCode.Q then
 				script.Parent.HangUp:FireServer(accentsAllowed,tostring("Left"))
+				animationTrack:Stop()
 			elseif input.KeyCode == Enum.KeyCode.E then
 				script.Parent.HangUp:FireServer(accentsAllowed,tostring("Right"))
+				animationTrack:Stop()
 			end
 		end
 	end
