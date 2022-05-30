@@ -9,51 +9,51 @@
 local correctAudio = {
 	A = {
 		Name = "A Natural",
-		ID = "rbxassetid://9773645539"
+		ID = "rbxassetid://9774032026"
 	},
 	Ab = {
 		Name = "A Flat",
-		ID = "rbxassetid://9773643681"
+		ID = "rbxassetid://9774040132"
 	},
 	B = {
 		Name = "B Natural",
-		ID = "rbxassetid://9773654191"
+		ID = "rbxassetid://9774062953"
 	},
 	Bb = {
 		Name = "B Flat",
-		ID = "rbxassetid://9773651258"
+		ID = "rbxassetid://9774067506"
 	},
 	C = {
 		Name = "C Natural",
-		ID = "rbxassetid://9773655666"
+		ID = "rbxassetid://9774083841"
 	},
 	D = {
 		Name = "D Natural",
-		ID = "rbxassetid://9773667380"
+		ID = "rbxassetid://9774158659"
 	},
 	Db = {
 		Name = "D Flat",
-		ID = "rbxassetid://9773663988"
+		ID = "rbxassetid://9774155977"
 	},
 	E = {
 		Name = "E Natural",
-		ID = "rbxassetid://9773681616"
+		ID = "rbxassetid://9774167874"
 	},
 	Eb = {
 		Name = "E Flat",
-		ID = "rbxassetid://9773677882"
+		ID = "rbxassetid://9774172291"
 	},
 	F = {
 		Name = "F Natural",
-		ID = "rbxassetid://9773793116"
+		ID = "rbxassetid://9774175843"
 	},
 	G = {
 		Name = "G Natural",
-		ID = "rbxassetid://9773798633"
+		ID = "rbxassetid://9774186353"
 	},
 	Gb = {
 		Name = "G Flat",
-		ID = "rbxassetid://9773796743"
+		ID = "rbxassetid://9774191454"
 	}
 }
 
