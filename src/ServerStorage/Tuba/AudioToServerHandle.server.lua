@@ -9,15 +9,55 @@
 local correctAudio = {
 	A = {
 		Name = "A Natural",
-		ID = "rbxassetid://5105152118" --For testing
+		ID = "rbxassetid://9773645539"
 	},
 	Ab = {
 		Name = "A Flat",
-		ID = "rbxassetid://603544755" --For testing
+		ID = "rbxassetid://9773643681"
+	},
+	B = {
+		Name = "B Natural",
+		ID = "rbxassetid://9773654191"
+	},
+	Bb = {
+		Name = "B Flat",
+		ID = "rbxassetid://9773651258"
+	},
+	C = {
+		Name = "C Natural",
+		ID = "rbxassetid://9773655666"
+	},
+	D = {
+		Name = "D Natural",
+		ID = "rbxassetid://9773667380"
+	},
+	Db = {
+		Name = "D Flat",
+		ID = "rbxassetid://9773663988"
+	},
+	E = {
+		Name = "E Natural",
+		ID = "rbxassetid://9773681616"
+	},
+	Eb = {
+		Name = "E Flat",
+		ID = "rbxassetid://9773677882"
+	},
+	F = {
+		Name = "F Natural",
+		ID = "rbxassetid://9773793116"
+	},
+	G = {
+		Name = "G Natural",
+		ID = "rbxassetid://9773798633"
+	},
+	Gb = {
+		Name = "G Flat",
+		ID = "rbxassetid://9773796743"
 	}
 }
 
---The notes sound group
+--The notes folder
 local notes = script.Parent.Notes
 
 function find(array,item)
