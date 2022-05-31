@@ -16,6 +16,8 @@ local copyBox = UI
 local hornsUp = script.Parent.HornsUp
 local right = script.Parent.Right
 local left = script.Parent.Left
+local rightCent = script.Parent.RightAccent
+local leftCent = script.Parent.LeftAccent
 local animationTrack
 
 local snare = script.Parent.Snare
@@ -107,16 +109,24 @@ end)
 UIS.InputBegan:Connect(function(input,chatting)
 	print(accentsAllowed)
 	if not chatting then
-		if input.KeyCode == Enum.KeyCode.LeftShift then
-			accentsAllowed = true
-		elseif input.KeyCode == Enum.KeyCode.Q then
-			script.Parent.TalkToServer:FireServer(accentsAllowed,tostring("Left"))
+		if input.KeyCode == Enum.KeyCode.Q then
+			script.Parent.TalkToServer:FireServer(false,tostring("Left"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)
 			animationTrack:Play()
 			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 		elseif input.KeyCode == Enum.KeyCode.E then
-			script.Parent.TalkToServer:FireServer(accentsAllowed,tostring("Right"))
+			script.Parent.TalkToServer:FireServer(false,tostring("Right"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(right)
+			animationTrack:Play()
+			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
+		elseif input.KeyCode == Enum.KeyCode.R then
+			script.Parent.TalkToServer:FireServer(true,tostring("Right"))
+			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(rightCent)
+			animationTrack:Play()
+			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
+		elseif input.KeyCode == Enum.KeyCode.Tab then
+			script.Parent.TalkToServer:FireServer(true,tostring("Left"))
+			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(leftCent)
 			animationTrack:Play()
 			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 		end
