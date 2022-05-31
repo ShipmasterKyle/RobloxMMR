@@ -1,5 +1,5 @@
 --[[
-	NoteHandle
+	Notes
 	Responsible for playing audio on the server.
 	Written by Drgametime3d (aka ShipmasterKyle) 2022. 
 	Do not steal.
@@ -15,25 +15,14 @@ script.Parent.ReadyCannons.OnServerEvent:Connect(function(plr)
 	end
 end)
 
-script.Parent.TalkToServer.OnServerEvent:Connect(function(plr,a,note)
+script.Parent.Whistle.OnServerEvent:Connect(function()
 	print(note)
 	print("Request Caught")
-	if a then
-		print("Accent!")
-		audioServer:PlayAccent(note)
-	else
-		print("No accent ;-;")
-		audioServer:PlayNote(note)
-	end
+    audioServer:PlayNote("Whistle")
 end)
 
-script.Parent.HangUp.OnServerEvent:Connect(function(plr,a,note)
+script.Parent.HangUp.OnServerEvent:Connect(function()
 	print(note)
 	print("Request Caught")
-	audioServer:StopNote(note)
-end)
-
-script.Parent.HangUpAll.OnServerEvent:Connect(function(plr)
-	print("Request Caught")
-	audioServer:StopAllSounds()
+	audioServer:StopNote("Whistle")
 end)
