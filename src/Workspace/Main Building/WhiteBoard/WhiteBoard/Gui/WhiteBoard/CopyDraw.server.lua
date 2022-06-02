@@ -1,6 +1,6 @@
 game.Players.PlayerAdded:connect(function(player)
 	player.CharacterAdded:connect(function(char)
-		copy = script.Parent.Draw:Clone()
+		local copy = script.Parent.Draw:Clone()
 		copy.Parent = player.PlayerGui
 		copy.Adornee = script.Parent
 		copy.Enabled = true

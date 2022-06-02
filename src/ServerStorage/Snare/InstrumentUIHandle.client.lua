@@ -13,7 +13,7 @@ local isActive = false
 local tool = script.Parent
 local copyBox = UI
 
-local hornsUp = script.Parent.HornsUp
+local hornsUp = script.Parent.Still
 local right = script.Parent.Right
 local left = script.Parent.Left
 local rightCent = script.Parent.RightAccent
@@ -76,16 +76,16 @@ tool.Equipped:Connect(function()
 	isActive = true
 	print("Activated")
 	--coroutine.resume(uiEvents)
-	local weld1 = Instance.new("Weld")
+	local weld1 = Instance.new("WeldConstraint")
 	local weld2 = Instance.new("Weld")
 	local humroot = game.Players.LocalPlayer.Character.HumanoidRootPart
 	local leftHand = game.Players.LocalPlayer.Character.LeftHand
-	snare:SetPrimaryPartCFrame(humroot.CFrame * CFrame.new(0,-2,10))
-	weld1.Part0 = snare
+	snare:SetPrimaryPartCFrame(CFrame.new(humroot.Position + Vector3.new(0,-1,-2)))
+	weld1.Part0 = snare.PrimaryPart
 	weld1.Part1 = humroot
 	weld1.Parent = snare
 	weld1.Name = "Weld1"
-	stick:SetPrimaryPartCFrame(leftHand.CFrame)
+	stick.CFrame = leftHand.CFrame
 	weld2.Part0 = stick
 	weld2.Part1 = leftHand
 	weld2.Parent = stick

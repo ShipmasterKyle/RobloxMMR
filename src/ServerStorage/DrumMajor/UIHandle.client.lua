@@ -1,9 +1,12 @@
 local UIS = game:GetService("UserInputService")
 
+local UI = script:WaitForChild("Instrument"):Clone()
 local tempo = script.Parent.Tempo
 local countOffAnim = script.Parent.Start
 local markTime = script.Parent.Conduct
 local fin = script.Parent.Signal
+local tool = script.Parent
+local copyBox = UI
 local animationTrack
 
 --Whistle Stuff
@@ -12,7 +15,7 @@ UIS.InputBegan:Connect(function(input,e)
         if input.KeyCode == Enum.KeyCode.E then
 			--Start Whistle
             script.Parent.Whistle:FireServer()
-		elseif input.KeyCode == Emum.KeyCode.Q then
+		elseif input.KeyCode == Enum.KeyCode.Q then
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(fin)
         end
     end

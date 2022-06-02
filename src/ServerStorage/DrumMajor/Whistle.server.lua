@@ -16,13 +16,11 @@ script.Parent.ReadyCannons.OnServerEvent:Connect(function(plr)
 end)
 
 script.Parent.Whistle.OnServerEvent:Connect(function()
-	print(note)
 	print("Request Caught")
     audioServer:PlayNote("Whistle")
 end)
 
 script.Parent.HangUp.OnServerEvent:Connect(function()
-	print(note)
 	print("Request Caught")
 	audioServer:StopNote("Whistle")
 end)
