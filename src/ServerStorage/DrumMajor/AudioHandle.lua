@@ -23,7 +23,6 @@ function module:PlayNote(note)
 	end
 end
 
-
 --Stops the whistle
 function module:StopNote(note)
 	if note then

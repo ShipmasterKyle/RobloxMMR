@@ -15,9 +15,7 @@ UIS.InputBegan:Connect(function(input,e)
         if input.KeyCode == Enum.KeyCode.E then
 			--Start Whistle
             script.Parent.Whistle:FireServer()
-		elseif input.KeyCode == Enum.KeyCode.Q then
-			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(fin)
-        end
+		end
     end
 end)
 

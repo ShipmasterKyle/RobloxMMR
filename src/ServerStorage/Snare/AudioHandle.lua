@@ -33,7 +33,6 @@ function module:PlayAccent(note)
 	end
 end
 
-
 --Stops a note from playing.
 function module:StopNote(note)
 	if note then
