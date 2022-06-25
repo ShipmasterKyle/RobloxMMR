@@ -28,8 +28,8 @@ end
 local RS = game:GetService("RunService")
 RS.Heartbeat:Connect(function()
 	for i,v in pairs(notes:GetChildren()) do
-		if find(correctAudio,v) then
-			v.SoundId = find(correctAudio,v).ID
+		if find(correctAudio,v.Name) then
+			v.SoundId = find(correctAudio,v.Name).ID
 		end
 	end
 end)

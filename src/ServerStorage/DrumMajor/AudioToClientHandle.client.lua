@@ -8,12 +8,8 @@
 --Table for the correct audios seen in the audio group.
 local correctAudio = {
 	A = {
-		Name = "Left",
-		ID = "rbxassetid://9744434475"
-	},
-	Ab = {
-		Name = "Right",
-		ID = "rbxassetid://9744434475"
+		Name = "Whistle",
+		ID = "rbxassetid://9774032026"
 	}
 }
 
