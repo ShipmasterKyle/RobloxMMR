@@ -81,21 +81,12 @@ tool.Equipped:Connect(function()
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
 	isActive = true
 	print("Activated")
-	--coroutine.resume(uiEvents)
-	animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(hornsUp)
-	animationTrack:Play()
-	print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
-	wait(1)
-	animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(still)
-	animationTrack:Play()
-	print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 end)
 
 tool.Unequipped:Connect(function()
 	print("Deactivated")
 	isActive = false
 	script.Parent.HangUpAll:FireServer()
-	animationTrack:Stop()
 	copyBox.Parent = workspace
 	--coroutine.yield(uiEvents)
 end)
