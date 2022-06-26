@@ -77,3 +77,74 @@ RS.Heartbeat:Connect(function()
 		end
 	end
 end)
+
+
+--[[
+local correctAudio = {
+	A = {
+		Name = "A Natural",
+		ID = "rbxassetid://9773645539"
+	},
+	Ab = {
+		Name = "A Flat",
+		ID = "rbxassetid://9773643681"
+	},
+	B = {
+		Name = "B Natural",
+		ID = "rbxassetid://9773654191"
+	},
+	Bb = {
+		Name = "B Flat",
+		ID = "rbxassetid://9773651258"
+	},
+	C = {
+		Name = "C Natural",
+		ID = "rbxassetid://9773655666"
+	},
+	D = {
+		Name = "D Natural",
+		ID = "rbxassetid://9773667380"
+	},
+	Db = {
+		Name = "D Flat",
+		ID = "rbxassetid://9773663988"
+	},
+	E = {
+		Name = "E Natural",
+		ID = "rbxassetid://9773681616"
+	},
+	Eb = {
+		Name = "E Flat",
+		ID = "rbxassetid://9773677882"
+	},
+	F = {
+		Name = "F Natural",
+		ID = "rbxassetid://9773793116"
+	},
+	G = {
+		Name = "G Natural",
+		ID = "rbxassetid://9773798633"
+	},
+	Gb = {
+		Name = "G Flat",
+		ID = "rbxassetid://9773796743"
+	}
+}
+
+function find(array,item)
+	for i,v in pairs(array) do
+		print(v.Name)
+		if v.Name == item then
+			return v
+		else end
+	end
+	return false
+end
+
+for i,v in pairs(game.ServerStorage.Tuba.Notes:GetChildren()) do
+	print(v.Name)
+	if find(correctAudio,v.Name) then
+		print("Found it!")
+		v.SoundId = find(correctAudio,v.Name).ID
+	end
+end]]
