@@ -29,8 +29,8 @@ function find(array,item)
 		if v.Name == item then
 			return v
 		else end
-		return false
 	end
+	return false
 end
 
 local RS = game:GetService("RunService")
