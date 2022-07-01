@@ -1,4 +1,5 @@
-local models = script.Models
+local models = workspace.Installer.Models
+
 local mainMessage = [[
 	Welcome to the RMA March Engine
 	
@@ -29,25 +30,31 @@ frame.Transparency = 1
 
 --|| Main Box Property||--
 local mainBox = box:Clone()
-mainBox.AnchorPoint = Vector2.new(0.5,0)
-mainBox.Size = UDim2.new(0,5,0,0.5,0)
-mainBox.Position = UDim2.new(0.5,0,0,0
+mainBox.AnchorPoint = Vector2.new(0.5,0.5)
+mainBox.Size = UDim2.new(0.5,0,0.5,0)
+mainBox.Position = UDim2.new(0.5,0,0.5,0)
 mainBox.BackgroundTransparency = 1
 mainBox.Font = Enum.Font.GothamBlack
+mainBox.TextScaled = true
 mainBox.Text = mainMessage
-mainBox.TextColor3 = Color3.fromHEX("#fff")
+mainBox.TextColor3 = Color3.fromHex("#ffffff")
    
 --|| Main Button Properties||--
 local nextbtn = btn:Clone()
-nextbtn.BackgroundColor3 = Color3.fromHEX("#3A91FB")
+nextbtn.BackgroundColor3 = Color3.fromHex("#00aaff")
 nextbtn.Font = Enum.Font.GothamBlack
-nextbtn.TextColor3 = Color3.fromHEX("#fff")
+nextbtn.TextColor3 = Color3.fromHex("#ffffff")
 nextbtn.Text = "Start"
-nextbtn.Size = UDim2.new(0.1,0,0,19,0)
+nextbtn.Size = UDim2.new(0.119,0,0.03,0)
 nextbtn.Position = UDim2.new(0.5,0,0.8,0)
 nextbtn.AnchorPoint = Vector2.new(0.5,0.5)
+nextbtn.TextScaled = true
+local nextCorner = Instance.new("UICorner")
+nextCorner.CornerRadius = UDim.new(0,8)
+nextCorner.Parent = nextbtn
    
 local newbtn = nextbtn:Clone()
+newbtn.Parent = frame
 newbtn.Visible = false
    
 frame.Parent = main
@@ -66,8 +73,9 @@ nextbtn.MouseButton1Click:Connect(function()
     end
     local remote = Instance.new("RemoteEvent")
     remote.Name = "March"
-    march.Parent = game.ReplicatedStorage
+    remote.Parent = game.ReplicatedStorage
     mainBox.Text = "All Done! Enjoy!"
+    newbtn.Text = "Close"
     newbtn.Visible = true
 end)
       
