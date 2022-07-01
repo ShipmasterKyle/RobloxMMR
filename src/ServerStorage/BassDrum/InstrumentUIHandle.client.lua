@@ -30,20 +30,7 @@ tool.Equipped:Connect(function()
 	isActive = true
 	print("Activated")
 	--coroutine.resume(uiEvents)
-	local weld1 = Instance.new("WeldConstraint")
-	local weld2 = Instance.new("Weld")
-	local humroot = game.Players.LocalPlayer.Character.HumanoidRootPart
-	local leftHand = game.Players.LocalPlayer.Character.LeftHand
-	snare:SetPrimaryPartCFrame(CFrame.new(humroot.Position + Vector3.new(0,-1,-2)))
-	weld1.Part0 = snare.PrimaryPart
-	weld1.Part1 = humroot
-	weld1.Parent = snare
-	weld1.Name = "Weld1"
-	stick.CFrame = leftHand.CFrame
-	weld2.Part0 = stick
-	weld2.Part1 = leftHand
-	weld2.Parent = stick
-	weld2.Name = "Weld2"
+	script.Parent.StrapUp:FireServer()
 	animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(hornsUp)
 	animationTrack:Play()
 	print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
