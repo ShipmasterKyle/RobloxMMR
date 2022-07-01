@@ -30,20 +30,7 @@ tool.Equipped:Connect(function()
 	isActive = true
 	print("Activated")
 	--coroutine.resume(uiEvents)
-	local weld1 = Instance.new("WeldConstraint")
-	local weld2 = Instance.new("Weld")
-	local humroot = game.Players.LocalPlayer.Character.HumanoidRootPart
-	local leftHand = game.Players.LocalPlayer.Character.LeftHand
-	snare:SetPrimaryPartCFrame(CFrame.new(humroot.Position + Vector3.new(0,-1,-2)))
-	weld1.Part0 = snare.PrimaryPart
-	weld1.Part1 = humroot
-	weld1.Parent = snare
-	weld1.Name = "Weld1"
-	stick.CFrame = leftHand.CFrame
-	weld2.Part0 = stick
-	weld2.Part1 = leftHand
-	weld2.Parent = stick
-	weld2.Name = "Weld2"
+	script.Parent.StrapUp:FireServer()
 	animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(hornsUp)
 	animationTrack:Play()
 	print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
@@ -55,30 +42,28 @@ tool.Unequipped:Connect(function()
 	script.Parent.HangUpAll:FireServer()
 	animationTrack:Stop()
 	copyBox.Parent = workspace
-	snare.Weld1:Destroy()
-	stick.Weld2:Destroy()
 	--coroutine.yield(uiEvents)
 end)
 
 UIS.InputBegan:Connect(function(input,chatting)
 	print(accentsAllowed)
-	if not chatting then
-		if input.KeyCode == Enum.KeyCode.Q then
+	if not chatting and isActive == true then
+		if input.KeyCode == Enum.KeyCode.G then
 			script.Parent.TalkToServer:FireServer(false,tostring("Left"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)
 			animationTrack:Play()
 			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
-		elseif input.KeyCode == Enum.KeyCode.E then
+		elseif input.KeyCode == Enum.KeyCode.H then
 			script.Parent.TalkToServer:FireServer(false,tostring("Right"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(right)
 			animationTrack:Play()
 			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
-		elseif input.KeyCode == Enum.KeyCode.R then
+		elseif input.KeyCode == Enum.KeyCode.J then
 			script.Parent.TalkToServer:FireServer(true,tostring("Right"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(rightCent)
 			animationTrack:Play()
 			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
-		elseif input.KeyCode == Enum.KeyCode.Tab then
+		elseif input.KeyCode == Enum.KeyCode.F then
 			script.Parent.TalkToServer:FireServer(true,tostring("Left"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(leftCent)
 			animationTrack:Play()
