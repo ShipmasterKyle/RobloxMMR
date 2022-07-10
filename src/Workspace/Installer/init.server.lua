@@ -12,7 +12,7 @@ local mainMessage = [[
 	Send the main place id of your band room to ShipmasterKyle#8071 and make sure you give SubToShip developer access to your hall.
 	This will allow you to have access to all the sounds.
 
-   Using Custom Models? Make sure if you're updating to remove your handles from your tools before pressing Start.
+    Using Custom Models? Make sure if you're updating to remove your handles from your tools before pressing Start.
 	
 	This kit is licensed by the Roblox Music Association. All Right Reserved.
 ]]
