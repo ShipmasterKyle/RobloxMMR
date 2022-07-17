@@ -28,7 +28,7 @@ function module:PlayAccent(note)
 	if note then
 		if script.Parent.Notes:FindFirstChild(note) then
 			script.Parent.Notes[note]:Play()
-			script.Parent.Notes[note].Volume = 3
+			script.Parent.Notes[note].PlaybackSpeed = 1.5
 		end
 	end
 end
@@ -39,7 +39,7 @@ function module:StopNote(note)
 		if script.Parent.Notes:FindFirstChild(note) then
 			script.Parent.Notes[note]:Stop()
 			--Clean up accents
-			script.Parent.Notes[note].Volume = 1
+			script.Parent.Notes[note].PlaybackSpeed = 1
 		end
 	end
 end

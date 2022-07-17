@@ -5,7 +5,6 @@
 	Do not steal.
 ]]
 
-
 local UI = script:WaitForChild("Instrument"):Clone()
 local UIS = game:GetService("UserInputService")
 local audioHandle = require(script.Parent.AudioHandle)
@@ -49,7 +48,7 @@ end)
 
 UIS.InputBegan:Connect(function(input,chatting)
 	print(accentsAllowed)
-	if not chatting then
+	if not chatting and isActive == true then
 		if input.KeyCode == Enum.KeyCode.Q then
 			script.Parent.TalkToServer:FireServer(false,tostring("Left"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)

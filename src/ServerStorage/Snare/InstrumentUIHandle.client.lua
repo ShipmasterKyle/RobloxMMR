@@ -5,7 +5,6 @@
 	Do not steal.
 ]]
 
-
 local UI = script:WaitForChild("Instrument"):Clone()
 local UIS = game:GetService("UserInputService")
 local audioHandle = require(script.Parent.AudioHandle)

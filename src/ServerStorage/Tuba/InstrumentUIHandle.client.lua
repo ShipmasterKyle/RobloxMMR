@@ -5,7 +5,6 @@
 	Do not steal.
 ]]
 
-
 local UI = script:WaitForChild("Instrument"):Clone()
 local UIS = game:GetService("UserInputService")
 local audioHandle = require(script.Parent.AudioHandle)
@@ -18,23 +17,6 @@ local still = script.Parent.Stand
 local animationTrack
 
 local accentsAllowed = false
-
-local inputTables = {
-	"Q",
-	"Z",
-	"E",
-	"X",
-	"R",
-	"C",
-	"F",
-	"V",
-	"G",
-	"B",
-	"H",
-	"N",
-	"J",
-	"M"
-}
 
 local uiEvents = coroutine.create(function()
 	while true do
@@ -93,7 +75,7 @@ end)
 
 UIS.InputBegan:Connect(function(input,chatting)
 	print(accentsAllowed)
-	if not chatting then
+	if not chatting and isActive == true then
 		if input.KeyCode == Enum.KeyCode.LeftShift then
 			accentsAllowed = true
 		elseif input.KeyCode == Enum.KeyCode.Q then
@@ -125,31 +107,33 @@ UIS.InputBegan:Connect(function(input,chatting)
 end)
 
 UIS.InputEnded:Connect(function(input)
-	print("input ended")
-	accentsAllowed = false
-	if input.KeyCode == Enum.KeyCode.Q then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("A Natural"))
-	elseif input.KeyCode == Enum.KeyCode.Z then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("A Flat"))
-	elseif input.KeyCode == Enum.KeyCode.E then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("B Natural"))
-	elseif input.KeyCode == Enum.KeyCode.X then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("B Flat"))
-	elseif input.KeyCode == Enum.KeyCode.R then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("C Natural"))
-	elseif input.KeyCode == Enum.KeyCode.F then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("D Natural"))
-	elseif input.KeyCode == Enum.KeyCode.V then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("D Flat"))
-	elseif input.KeyCode == Enum.KeyCode.G then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("E Natural"))
-	elseif input.KeyCode == Enum.KeyCode.B then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("E Flat"))
-	elseif input.KeyCode == Enum.KeyCode.H then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("F Natural"))
-	elseif input.KeyCode == Enum.KeyCode.J then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("G Natural"))
-	elseif input.KeyCode == Enum.KeyCode.M then
-		script.Parent.HangUp:FireServer(accentsAllowed,tostring("G Flat"))
+	if isActive == true then
+		print("input ended")
+		accentsAllowed = false
+		if input.KeyCode == Enum.KeyCode.Q then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("A Natural"))
+		elseif input.KeyCode == Enum.KeyCode.Z then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("A Flat"))
+		elseif input.KeyCode == Enum.KeyCode.E then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("B Natural"))
+		elseif input.KeyCode == Enum.KeyCode.X then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("B Flat"))
+		elseif input.KeyCode == Enum.KeyCode.R then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("C Natural"))
+		elseif input.KeyCode == Enum.KeyCode.F then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("D Natural"))
+		elseif input.KeyCode == Enum.KeyCode.V then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("D Flat"))
+		elseif input.KeyCode == Enum.KeyCode.G then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("E Natural"))
+		elseif input.KeyCode == Enum.KeyCode.B then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("E Flat"))
+		elseif input.KeyCode == Enum.KeyCode.H then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("F Natural"))
+		elseif input.KeyCode == Enum.KeyCode.J then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("G Natural"))
+		elseif input.KeyCode == Enum.KeyCode.M then
+			script.Parent.HangUp:FireServer(accentsAllowed,tostring("G Flat"))
+		end
 	end
 end)

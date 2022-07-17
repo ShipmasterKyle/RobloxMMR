@@ -10,7 +10,7 @@ eve.OnServerInvoke = function(plr)
 		local leftHand = char.LeftHand
 		local snare = script.Parent.Snare
 		local stick = script.Parent.LeftStick
-		snare:SetPrimaryPartCFrame(humroot.CFrame + Vector3.new(0,-1,2))
+		snare.CFrame = humroot.CFrame + Vector3.new(0,-1,2)
 		weld1.Part0 = snare.PrimaryPart
 		weld1.Part1 = humroot
 		weld1.Parent = snare
