@@ -15,7 +15,7 @@ script.Parent.ReadyCannons.OnServerEvent:Connect(function(plr)
 	end
 end)
 
-script.Parent.TalkToServer.OnServerEvent:Connect(function(plr,a,note)
+script.Parent.TalkToServer.OnServerInvoke = function(plr,a,note)
 	print(note)
 	print("Request Caught")
 	if a then
@@ -25,13 +25,13 @@ script.Parent.TalkToServer.OnServerEvent:Connect(function(plr,a,note)
 		print("No accent ;-;")
 		audioServer:PlayNote(note)
 	end
-end)
+end
 
-script.Parent.HangUp.OnServerEvent:Connect(function(plr,a,note)
+script.Parent.HangUp.OnServerInvoke = function(plr,a,note)
 	print(note)
 	print("Request Caught")
 	audioServer:StopNote(note)
-end)
+end
 
 script.Parent.HangUpAll.OnServerEvent:Connect(function(plr)
 	print("Request Caught")

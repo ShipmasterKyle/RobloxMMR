@@ -12,10 +12,6 @@ local isActive = false
 local tool = script.Parent
 local copyBox = UI
 
-local hornsUp = script.Parent.HornsUp
-local still = script.Parent.Stand
-local animationTrack
-
 local accentsAllowed = false
 
 local uiEvents = coroutine.create(function()
