@@ -6,9 +6,9 @@ local mainMessage = [[
 	This kit allows your band members to actaully play their instruments.
 	No more using codes!
 
-    This kit works best with Adonis.
+    As of v7.25.22 Adonis is a dependency of this kit. As such it is included with it
 	
-	This script and all the script you'll see in this kit (excluding Adonis) was written by Shipmaster.
+	This script and all the script you'll see in this kit (excluding Adonis) was written by ShipmasterKyle.
 	Send the main place id of your band room to ShipmasterKyle#8071 and make sure you give SubToShip developer access to your hall.
 	This will allow you to have access to all the sounds.
 
@@ -24,11 +24,11 @@ local box = Instance.new("TextLabel")
 
 main.Parent = game.StarterGui
 
---|| Main Frame Properties||--
+--|| Main Frame Properties ||--
 frame.Size = UDim2.new(1,0,1,0)
 frame.Transparency = 1
 
---|| Main Box Property||--
+--|| Main Box Property ||--
 local mainBox = box:Clone()
 mainBox.AnchorPoint = Vector2.new(0.5,0.5)
 mainBox.Size = UDim2.new(0.5,0,0.5,0)
@@ -39,7 +39,7 @@ mainBox.TextScaled = true
 mainBox.Text = mainMessage
 mainBox.TextColor3 = Color3.fromHex("#ffffff")
    
---|| Main Button Properties||--
+--|| Main Button Properties ||--
 local nextbtn = btn:Clone()
 nextbtn.BackgroundColor3 = Color3.fromHex("#00aaff")
 nextbtn.Font = Enum.Font.GothamBlack
@@ -74,7 +74,7 @@ nextbtn.MouseButton1Click:Connect(function()
     local remote = Instance.new("RemoteEvent")
     remote.Name = "March"
     remote.Parent = game.ReplicatedStorage
-    mainBox.Text = "All Done! Enjoy!"
+    mainBox.Text = "All Done! Enjoy! You can delete the Installer Script in workspace."
     newbtn.Text = "Close"
     newbtn.Visible = true
 end)

@@ -1,5 +1,5 @@
 --[[
-	AudioToServerHandle
+	AudioToClientHandle
 	Responsible for general sanity checks on audio.
 	Written by Drgametime3d (aka ShipmasterKyle) 2022. 
 	Do not steal.
@@ -8,52 +8,100 @@
 --Table for the correct audios seen in the audio group.
 local correctAudio = {
 	A = {
-		Name = "A Natural",
-		ID = "rbxassetid://9733680911"
+		Name = "A Natural 4",
+		ID = "rbxassetid://10320382156"
 	},
 	Ab = {
-		Name = "A Flat",
-		ID = "rbxassetid://9733686913"
+		Name = "A Flat 4",
+		ID = "rbxassetid://10320392772"
 	},
 	B = {
-		Name = "B Natural",
-		ID = "rbxassetid://9733672671"
+		Name = "B Natural 4",
+		ID = "rbxassetid://10320397403"
 	},
 	Bb = {
-		Name = "B Flat",
-		ID = "rbxassetid://9733670968"
+		Name = "B Flat 4",
+		ID = "rbxassetid://10320398790"
 	},
 	C = {
-		Name = "C Natural",
-		ID = "rbxassetid://9733667541"
+		Name = "C Natural 4",
+		ID = "rbxassetid://10320400200"
 	},
 	D = {
-		Name = "D Natural",
-		ID = "rbxassetid://9702290636"
+		Name = "D Natural 4",
+		ID = "rbxassetid://10320401741"
 	},
 	Db = {
-		Name = "D Flat",
-		ID = "rbxassetid://9702289638"
+		Name = "D Flat 4",
+		ID = "rbxassetid://10320402630"
 	},
 	E = {
-		Name = "E Natural",
-		ID = "rbxassetid://9702288296"
+		Name = "E Natural 4",
+		ID = "rbxassetid://10320405737"
 	},
 	Eb = {
-		Name = "E Flat",
-		ID = "rbxassetid://9702286947"
+		Name = "E Flat 4",
+		ID = "rbxassetid://10320403936"
 	},
 	F = {
-		Name = "F Natural",
-		ID = "rbxassetid://9702280904"
+		Name = "F Natural 4",
+		ID = "rbxassetid://10320407159"
 	},
 	G = {
-		Name = "G Natural",
-		ID = "rbxassetid://9702279401"
+		Name = "G Natural 4",
+		ID = "rbxassetid://10320419723"
 	},
 	Gb = {
-		Name = "G Flat",
-		ID = "rbxassetid://9702270927"
+		Name = "G Flat 4",
+		ID = "rbxassetid://10320417510"
+	},
+	qA = {
+		Name = "A Natural 5",
+		ID = "rbxassetid://10320423349"
+	},
+	qAb = {
+		Name = "A Flat 5",
+		ID = "rbxassetid://10320421596"
+	},
+	qB = {
+		Name = "B Natural 5",
+		ID = "rbxassetid://10320426603"
+	},
+	qBb = {
+		Name = "B Flat 5",
+		ID = "rbxassetid://10320428644"
+	},
+	qC = {
+		Name = "C Natural 5",
+		ID = "rbxassetid://10320430193"
+	},
+	qD = {
+		Name = "D Natural 5",
+		ID = "rbxassetid://10320433610"
+	},
+	qDb = {
+		Name = "D Flat 5",
+		ID = "rbxassetid://10320432057"
+	},
+	qE = {
+		Name = "E Natural 5",
+		ID = "rbxassetid://10320464583"
+	},
+	qEb = {
+		Name = "E Flat 5",
+		ID = "rbxassetid://10320436974"
+	},
+	qF = {
+		Name = "F Natural 5",
+		ID = "rbxassetid://10320511070"
+	},
+	qG = {
+		Name = "G Natural 5",
+		ID = "rbxassetid://10320513291"
+	},
+	qGb = {
+		Name = "G Flat 5",
+		ID = "rbxassetid://10320514791"
 	}
 }
 
