@@ -77,7 +77,6 @@ while wait(1) do
                     local targetPlayerName = find(players, v.Parent.NameBox.Text)
                     if targetPlayerName then
                         target = game.Players:GetPlayerFromCharacter(workspace[targetPlayerName]) --> Believe me when I say, there is probably a better way to do this.
-                        
                     end
                 end
                 if v.Name == "StopBtn" then

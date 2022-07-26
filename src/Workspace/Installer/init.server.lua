@@ -1,4 +1,6 @@
 local models = workspace.Installer.Models
+--Make sure the installer is disabled if its already
+models.Parent.Disabled = true
 
 local mainMessage = [[
 	Welcome to the RMA March Engine
@@ -65,12 +67,15 @@ nextbtn.MouseButton1Click:Connect(function()
     nextbtn.Visible = false
     mainBox.Text = "Please Wait..."
     for i,v in pairs(models:GetChildren()) do
-       if game.ServerStorage:FindFirstChild(v.Name) then
-           game.ServerStorage[v.Name]:Destroy()
-       end
-       v.Parent = game.ServerStorage
-       wait(0.0125)
-    end
+        if v.Name ~= "Adonis" then
+            if game.ServerStorage:FindFirstChild(v.Name) then
+                game.ServerStorage[v.Name]:Destroy()
+            end
+            v.Parent = game.ServerStorage
+            wait(0.0125)
+        else
+            v.Parent = workspace
+        end
     local remote = Instance.new("RemoteEvent")
     remote.Name = "March"
     remote.Parent = game.ReplicatedStorage
