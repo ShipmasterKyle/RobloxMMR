@@ -1,7 +1,7 @@
 local eve = script.Parent.StrapUp
 local eva = script.Parent.CleanUp
 
-eve.OnServerEvent:Connect(function(plr)
+eve.OnServerInvoke = function(plr)
 	local char = plr.Character
 	if char and char:FindFirstChild("LeftHand") then
 		local weld1 = Instance.new("WeldConstraint")
@@ -22,12 +22,12 @@ eve.OnServerEvent:Connect(function(plr)
 		weld2.Parent = stick
 		weld2.Name = "Weld2"
 	end
-end)
+end
 
-eva.OnServerEvent:Connect(function(plr)
+eva.OnServerInvoke = function(plr)
 	if plr then
 		local char = plr.Character
 		char.Snare.Weld1:Destroy()
 		char.LeftStick.Weld2:Destroy()
 	end
-end)
+end
