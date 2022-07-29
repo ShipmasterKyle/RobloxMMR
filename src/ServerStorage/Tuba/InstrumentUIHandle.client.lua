@@ -6,59 +6,61 @@
 ]]
 
 local UI = script:WaitForChild("Instrument"):Clone()
+local method = script.Parent.MobileMode
+local keyFrame = UI.MainFrame.MobileMethod
 local UIS = game:GetService("UserInputService")
 local audioHandle = require(script.Parent.AudioHandle)
 local isActive = false
 local tool = script.Parent
 local copyBox = UI
 
-local accentsAllowed = false
+local notes = {
+	"A Flat",
+	"A Natural",
+	"B Natural",
+	"B Flat",
+	"C Natural",
+	"D Natural",
+	'D Flat',
+	"E Natural",
+	"E Flat",
+	"F Natural",
+	"G Natural",
+	"G Flat"
+}
 
 local uiEvents = coroutine.create(function()
-	while true do
-		print(isActive)
-		if isActive == true then
-			for i,v in pairs(copyBox:GetDescendants()) do
-				if v:IsA("TextButton") then
-					if v.Name == "OctaveUp" then
-						
-					elseif v.Name == "OctaveDown" then
-						
-					else
-						v.MouseDown:Connect(function()
-							print("Clicked "..v.Name)
-							script.Parent.TalkToServer:FireServer(accentsAllowed,tostring(v.Name))
-						end)
-						v.MouseUp:Connect(function()
-							print("clicked")
-							script.Parent.HangUp:FireServer(accentsAllowed,tostring(v.Name))
-						end)
+	while wait(1) do
+		for i,v in pairs(copyBox:GetDescendants()) do
+			if v:IsA("TextButton") then
+				v.MouseButton1Click:Connect(function()
+					if v.Name == "LoadMusic" then
+						method.Value = not method.Value
+						keyFrame.Visible = method.Value
 					end
-				elseif v:IsA("ImageButton") then
-					v.MouseButton1Click:Connect(function()
-						v.Parent.Frame.Visible = not v.Parent.Frame.Visible
-						if v.Rotation == 0 then
-							v.Rotation = 180
-						else
-							v.Rotation = 0
-						end
-					end)
-				end
-				if v.Name == "Octave" and v:IsA("TextLabel") then
-					v.Text = tostring(script.Parent.Octave.Value)
-				end
+				end)
+				v.MouseButton1Down:Connect(function()
+					if table.find(notes, v.Name) then
+						script.Parent.TalkToServer:FireServer(false,v.Name)
+					end
+				end)
+				v.MouseButton1Up:Connect(function()
+					if table.find(notes, v.Name) then
+						script.Parent.HangUp:FireServer(false,v.Name)
+					end
+				end)
 			end
-		elseif isActive == false then
-			copyBox.Parent = workspace --Clean up the box and remove it from the player
 		end
-		wait(0.1)
 	end
 end)
+
+local accentsAllowed = false
 
 tool.Equipped:Connect(function()
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
 	isActive = true
 	print("Activated")
+	coroutine.resume(uiEvents)
 end)
 
 tool.Unequipped:Connect(function()
@@ -66,12 +68,12 @@ tool.Unequipped:Connect(function()
 	isActive = false
 	script.Parent.HangUpAll:FireServer()
 	copyBox.Parent = workspace
-	--coroutine.yield(uiEvents)
+	coroutine.yield(uiEvents)
 end)
 
 UIS.InputBegan:Connect(function(input,chatting)
-	print(accentsAllowed)
 	if not chatting and isActive == true then
+		print(accentsAllowed)
 		if input.KeyCode == Enum.KeyCode.LeftShift then
 			accentsAllowed = true
 		elseif input.KeyCode == Enum.KeyCode.Q then

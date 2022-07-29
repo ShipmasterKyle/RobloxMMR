@@ -1,6 +1,4 @@
 local models = workspace.Installer.Models
---Make sure the installer is disabled if its already
-models.Parent.Disabled = true
 
 local mainMessage = [[
 	Welcome to the RMA March Engine
@@ -40,7 +38,7 @@ mainBox.Font = Enum.Font.GothamBlack
 mainBox.TextScaled = true
 mainBox.Text = mainMessage
 mainBox.TextColor3 = Color3.fromHex("#ffffff")
-   
+
 --|| Main Button Properties ||--
 local nextbtn = btn:Clone()
 nextbtn.BackgroundColor3 = Color3.fromHex("#00aaff")
@@ -54,36 +52,39 @@ nextbtn.TextScaled = true
 local nextCorner = Instance.new("UICorner")
 nextCorner.CornerRadius = UDim.new(0,8)
 nextCorner.Parent = nextbtn
-   
+
 local newbtn = nextbtn:Clone()
 newbtn.Parent = frame
 newbtn.Visible = false
-   
+
 frame.Parent = main
 mainBox.Parent = frame
 nextbtn.Parent = frame
-   
+
 nextbtn.MouseButton1Click:Connect(function()
-    nextbtn.Visible = false
-    mainBox.Text = "Please Wait..."
-    for i,v in pairs(models:GetChildren()) do
-        if v.Name ~= "Adonis" then
-            if game.ServerStorage:FindFirstChild(v.Name) then
-                game.ServerStorage[v.Name]:Destroy()
-            end
-            v.Parent = game.ServerStorage
-            wait(0.0125)
-        else
-            v.Parent = workspace
-        end
-    local remote = Instance.new("RemoteEvent")
-    remote.Name = "March"
-    remote.Parent = game.ReplicatedStorage
-    mainBox.Text = "All Done! Enjoy! You can delete the Installer Script in workspace."
-    newbtn.Text = "Close"
-    newbtn.Visible = true
+	nextbtn.Visible = false
+	mainBox.Text = "Please Wait..."
+	for i,v in pairs(models:GetChildren()) do
+		if v.Name == "Adonis_Loader" then
+			if not workspace:FindFirstChild(v.Name) then
+				v.Parent = workspace
+			end
+		else
+			if game.ServerStorage:FindFirstChild(v.Name) then
+				game.ServerStorage[v.Name]:Destroy()
+			end
+			v.Parent = game.ServerStorage
+			wait(0.0125)
+		end
+	end
+	local remote = Instance.new("RemoteEvent")
+	remote.Name = "March"
+	remote.Parent = game.ReplicatedStorage
+	mainBox.Text = "All Done! Enjoy! You can delete the Installer Script in workspace."
+	newbtn.Text = "Close"
+	newbtn.Visible = true
 end)
-      
+
 newbtn.MouseButton1Click:Connect(function()
-   main:Destroy()         
+	main:Destroy()         
 end)
