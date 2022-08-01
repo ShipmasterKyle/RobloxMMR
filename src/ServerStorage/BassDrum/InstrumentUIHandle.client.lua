@@ -19,7 +19,7 @@ local rightCent = script.Parent.RightAccent
 local leftCent = script.Parent.LeftAccent
 local animationTrack
 
-local snare = script.Parent.Snare
+local snare = script.Parent.BassDrum
 local stick = script.Parent.LeftStick
 
 local accentsAllowed = false
