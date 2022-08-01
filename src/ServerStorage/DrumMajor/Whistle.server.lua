@@ -15,7 +15,7 @@ script.Parent.ReadyCannons.OnServerEvent:Connect(function(plr)
 	end
 end)
 
-script.Parent.Whistle.OnServerEvent:Connect(function()
+script.Parent.WhistleSound.OnServerEvent:Connect(function()
 	print("Request Caught")
     audioServer:PlayNote("Whistle")
 end)

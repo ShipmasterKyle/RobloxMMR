@@ -1,20 +1,24 @@
 local UIS = game:GetService("UserInputService")
+local chat = game:GetService("Chat")
 
 local UI = script:WaitForChild("Instrument"):Clone()
 local tempo = script.Parent.Tempo
-local countOffAnim = script.Parent.Start
 local markTime = script.Parent.Conduct
 local fin = script.Parent.Signal
 local tool = script.Parent
 local copyBox = UI
-local animationTrack
+local actions = copyBox.Actions
+local animationTrack = nil
+
+--Commands List.
+local commandsList = require(script.Parent.Commands)
 
 --Whistle Stuff
-UIS.InputBegan:Connect(function(input,e)
+UIS.InputBegan:Connect(function(input,e) --e detects if they are typing
     if not e then
         if input.KeyCode == Enum.KeyCode.E then
 			--Start Whistle
-            script.Parent.Whistle:FireServer()
+            script.Parent.WhistleSound:FireServer()
 		end
     end
 end)
@@ -28,19 +32,30 @@ end)
 
 --Tempo Controller
 local uiEvents = coroutine.create(function()
-	while true do
+	while wait(1) do
 		print(isActive)
 		if isActive == true then
 			for i,v in pairs(copyBox:GetDescendants()) do
 				if v:IsA("TextButton") then
-                    if v.Name == "Enter" and tonumber(copyBox.Tempo.Text) then
-                        tempo.Value = tonumber(copyBox.Tempo.Text)
-						animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(countOffAnim)
-						animationTrack:Play()
-						wait(animationTrack.Speed)
-						animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(markTime)
-						animationTrack:Play()
-                    end
+					v.MouseButton1Click:Connect(function()
+						if v.Name == "Enter" and tonumber(copyBox.Frame.Tempo.Text) then
+							v.Parent.Stop.TextTransparency = 0
+							animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(markTime)
+							tempo.Value = tonumber(copyBox.Frame.Tempo.Text)
+							animationTrack:Play()
+						end
+						if v.Name == "Stop" then
+							animationTrack:Stop()
+							v.TextTransparency = 0.5
+						end
+						if v.Name == "LoadActions" then
+							actions.Visible = not actions.Visible
+						end
+						if commandsList:find(v.Name) then
+							local obj = commandsList:find(v.Name)
+							chat:Chat(game.Players.LocalPlayer.Character, obj.Say, "Blue" )
+						end
+					end)
                 end
             end
 		elseif isActive == false then
@@ -60,7 +75,7 @@ tool.Equipped:Connect(function()
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
 	isActive = true
 	print("Activated")
-	coroutine.resume(uiEvents)
+	--coroutine.resume(uiEvents)
 end)
 
 tool.Unequipped:Connect(function()

@@ -86,5 +86,5 @@ nextbtn.MouseButton1Click:Connect(function()
 end)
 
 newbtn.MouseButton1Click:Connect(function()
-	main:Destroy()         
+	main:Destroy()
 end)
