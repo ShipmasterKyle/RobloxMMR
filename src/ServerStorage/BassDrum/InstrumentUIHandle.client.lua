@@ -41,30 +41,28 @@ tool.Unequipped:Connect(function()
 	script.Parent.HangUpAll:FireServer()
 	animationTrack:Stop()
 	copyBox.Parent = workspace
-	snare.Weld1:Destroy()
-	stick.Weld2:Destroy()
 	--coroutine.yield(uiEvents)
 end)
 
 UIS.InputBegan:Connect(function(input,chatting)
 	print(accentsAllowed)
 	if not chatting and isActive == true then
-		if input.KeyCode == Enum.KeyCode.Q then
+		if input.KeyCode == Enum.KeyCode.G then
 			script.Parent.TalkToServer:FireServer(false,tostring("Left"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)
 			animationTrack:Play()
 			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
-		elseif input.KeyCode == Enum.KeyCode.E then
+		elseif input.KeyCode == Enum.KeyCode.H then
 			script.Parent.TalkToServer:FireServer(false,tostring("Right"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(right)
 			animationTrack:Play()
 			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
-		elseif input.KeyCode == Enum.KeyCode.R then
+		elseif input.KeyCode == Enum.KeyCode.F then
 			script.Parent.TalkToServer:FireServer(true,tostring("Click"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(rightCent)
 			animationTrack:Play()
 			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
-		elseif input.KeyCode == Enum.KeyCode.Tab then
+		elseif input.KeyCode == Enum.KeyCode.J then
 			script.Parent.TalkToServer:FireServer(true,tostring("Click"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(leftCent)
 			animationTrack:Play()
