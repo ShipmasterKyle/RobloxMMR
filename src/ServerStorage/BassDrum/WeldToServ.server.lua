@@ -11,7 +11,7 @@ eve.OnServerEvent:Connect(function(plr)
 		local snare = script.Parent.BassDrum
 		local stick = script.Parent.LeftStick
 		--Fix the Anchor Problem
-		for i,v in pairs(snare:GetDescendants())
+		for i,v in pairs(snare:GetDescendants()) do
 			if v:IsA("BasePart") then
 				v.Anchored = false
 			end
