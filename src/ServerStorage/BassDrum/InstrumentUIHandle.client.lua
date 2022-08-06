@@ -45,8 +45,8 @@ tool.Unequipped:Connect(function()
 end)
 
 UIS.InputBegan:Connect(function(input,chatting)
-	print(accentsAllowed)
 	if not chatting and isActive == true then
+		print(accentsAllowed)
 		if input.KeyCode == Enum.KeyCode.G then
 			script.Parent.TalkToServer:FireServer(false,tostring("Left"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)

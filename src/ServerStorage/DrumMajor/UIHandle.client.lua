@@ -15,8 +15,8 @@ local commandsList = require(script.Parent.Commands)
 
 --Whistle Stuff
 UIS.InputBegan:Connect(function(input,e) --e detects if they are typing
-    if not e then
-        if input.KeyCode == Enum.KeyCode.E then
+    if not e and isActive == true then
+		if input.KeyCode == Enum.KeyCode.E then
 			--Start Whistle
             script.Parent.WhistleSound:FireServer()
 		end
