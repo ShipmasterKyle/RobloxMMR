@@ -9,6 +9,7 @@ local tool = script.Parent
 local copyBox = UI
 local actions = copyBox.Actions
 local animationTrack = nil
+local debound = false
 
 --Commands List.
 local commandsList = require(script.Parent.Commands)
@@ -39,13 +40,19 @@ local uiEvents = coroutine.create(function()
 				if v:IsA("TextButton") then
 					v.MouseButton1Click:Connect(function()
 						if v.Name == "Enter" and tonumber(copyBox.Frame.Tempo.Text) then
-							v.Parent.Stop.TextTransparency = 0
-							animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(markTime)
-							tempo.Value = tonumber(copyBox.Frame.Tempo.Text)
-							animationTrack:Play()
+							if debound == false then
+								debound = true
+								v.Parent.Stop.TextTransparency = 0
+								local numeral = tonumber(copyBox.Frame.Tempo.Text)/60
+								tempo.Value = numeral
+							end
 						end
 						if v.Name == "Stop" then
-							animationTrack:Stop()
+							debound = false
+							if animationTrack ~= nil then
+								animationTrack:Stop()
+								animationTrack = nil
+							end
 							v.TextTransparency = 0.5
 						end
 						if v.Name == "LoadActions" then
@@ -68,21 +75,32 @@ end)
 
 tempo.Changed:Connect(function()
 	--Set the animation speed
-    animationTrack:AdjustSpeed(tempo.Value/60)
+	if animationTrack ~= nil then
+		animationTrack:Stop()
+		animationTrack = nil
+	end
+	animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(markTime)
+	animationTrack:Play()
+    animationTrack:AdjustSpeed(tempo.Value)
 end)
 
 tool.Equipped:Connect(function()
+	debound = false
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
 	isActive = true
 	print("Activated")
-	--coroutine.resume(uiEvents)
+	coroutine.resume(uiEvents)
 end)
 
 tool.Unequipped:Connect(function()
 	print("Deactivated")
 	isActive = false
 	script.Parent.HangUp:FireServer()
-	animationTrack:Stop()
+	debound = false
+	if animationTrack ~= nil then
+		animationTrack:Stop()
+		animationTrack = nil
+	end
 	copyBox.Parent = workspace
-	--coroutine.yield(uiEvents)
+	coroutine.yield(uiEvents)
 end)
