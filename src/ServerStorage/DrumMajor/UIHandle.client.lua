@@ -60,7 +60,7 @@ local uiEvents = coroutine.create(function()
 						end
 						if commandsList:find(v.Name) then
 							local obj = commandsList:find(v.Name)
-							chat:Chat(game.Players.LocalPlayer.Character, obj.Say, "Blue" )
+							chat:Chat(game.Players.LocalPlayer, obj.Say, "Blue" )
 						end
 					end)
                 end

@@ -22,7 +22,7 @@ local correctAudio = {
 }
 
 --The notes folder
-local notes = script.Parent.Notes
+local notes = script.Parent.Handle.Notes
 
 function find(array,item)
 	for i,v in pairs(array) do

@@ -77,9 +77,9 @@ nextbtn.MouseButton1Click:Connect(function()
 			wait(0.0125)
 		end
 	end
-	local remote = Instance.new("RemoteEvent")
-	remote.Name = "March"
-	remote.Parent = game.ReplicatedStorage
+	-- local remote = Instance.new("RemoteEvent")
+	-- remote.Name = "March"
+	-- remote.Parent = game.ReplicatedStorage
 	mainBox.Text = "All Done! Enjoy! You can delete the Installer Script in workspace."
 	newbtn.Text = "Close"
 	newbtn.Visible = true

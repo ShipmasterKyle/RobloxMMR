@@ -6,6 +6,8 @@
 ]]
 
 local UI = script:WaitForChild("Instrument"):Clone()
+local method = script.Parent.MobileMode
+local keyFrame = UI.MainFrame.MobileMethod
 local UIS = game:GetService("UserInputService")
 local audioHandle = require(script.Parent.AudioHandle)
 local isActive = false
@@ -24,11 +26,32 @@ local stick = script.Parent.LeftStick
 
 local accentsAllowed = false
 
+local uiEvents = coroutine.create(function()
+	while wait(1) do
+		for i,v in pairs(copyBox:GetDescendants()) do
+			if v:IsA("TextButton") then
+				v.MouseButton1Click:Connect(function()
+					if v.Name == "LoadAction" then
+						method.Value = not method.Value
+						keyFrame.Visible = method.Value
+					end
+					if v.Name == "Left" or v.Name == "Right" then
+						script.Parent.TalkToServer:InvokeServer(false,tostring(v.Name))
+					end
+					if v.Name == "LeftA" or v.Name == "RightA" then
+						script.Parent.TalkToServer:InvokeServer(true,tostring(v.Name))
+					end
+				end)
+			end
+		end
+	end
+end)
+
 tool.Equipped:Connect(function()
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
 	isActive = true
 	print("Activated")
-	--coroutine.resume(uiEvents)
+	coroutine.resume(uiEvents)
 	script.Parent.StrapUp:InvokeServer()
 	animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(hornsUp)
 	animationTrack:Play()
@@ -41,7 +64,7 @@ tool.Unequipped:Connect(function()
 	script.Parent.HangUpAll:FireServer()
 	animationTrack:Stop()
 	copyBox.Parent = workspace
-	--coroutine.yield(uiEvents)
+	coroutine.yield(uiEvents)
 end)
 
 UIS.InputBegan:Connect(function(input,chatting)

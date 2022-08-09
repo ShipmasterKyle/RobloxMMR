@@ -17,10 +17,10 @@ end
 --Plays a note without an accent.
 function module:PlayNote(note)
 	if note then
-		if script.Parent.Notes:FindFirstChild(note) then
-			script.Parent.Notes[note].PlaybackSpeed = 1.5
-			script.Parent.Notes[note].Volume = 5
-			script.Parent.Notes[note]:Play()
+		if script.Parent.Handle.Notes:FindFirstChild(note) then
+			script.Parent.Handle.Notes[note].PlaybackSpeed = 1.4
+			script.Parent.Handle.Notes[note].Volume = 1
+			script.Parent.Handle.Notes[note]:Play()
 		end
 	end
 end
@@ -28,10 +28,10 @@ end
 --Plays a note with an accent.
 function module:PlayAccent(note)
 	if note then
-		if script.Parent.Notes:FindFirstChild(note) then
-			script.Parent.Notes[note].PlaybackSpeed = 1.5
-			script.Parent.Notes[note].Volume = 10
-			script.Parent.Notes[note]:Play()
+		if script.Parent.Handle.Notes:FindFirstChild(note) then
+			script.Parent.Handle.Notes[note].PlaybackSpeed = 1.5
+			script.Parent.Handle.Notes[note].Volume = 10
+			script.Parent.Handle.Notes[note]:Play()
 		end
 	end
 end
@@ -39,15 +39,15 @@ end
 --Stops a note from playing.
 function module:StopNote(note)
 	if note then
-		if script.Parent.Notes:FindFirstChild(note) then
-			script.Parent.Notes[note]:Stop()
+		if script.Parent.Handle.Notes:FindFirstChild(note) then
+			script.Parent.Handle.Notes[note]:Stop()
 		end
 	end
 end
 
 --Stops all sounds. Should only be used for cleaning up
 function module:StopAllSounds(note)
-	for _,v in pairs(script.Parent.Notes:GetChildren()) do
+	for _,v in pairs(script.Parent.Handle.Notes:GetChildren()) do
 		v:Stop()
 	end
 end

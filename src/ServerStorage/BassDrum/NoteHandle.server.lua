@@ -10,7 +10,7 @@ local audioServer = require(script.Parent.AudioHandle)
 
 script.Parent.ReadyCannons.OnServerEvent:Connect(function(plr)
 	print("Preloading...")
-	for _,v in pairs(script.Parent.Notes:GetChildren()) do
+	for _,v in pairs(script.Parent.Handle.Notes:GetChildren()) do
 		audioServer:PreloadAudio(v)
 	end
 end)
