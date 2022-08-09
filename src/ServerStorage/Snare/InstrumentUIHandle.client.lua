@@ -15,10 +15,12 @@ local tool = script.Parent
 local copyBox = UI
 
 local hornsUp = script.Parent.Still
+--For this to function correctly your animations need to have the Action Priority
 local right = script.Parent.Right
 local left = script.Parent.Left
-local rightCent = script.Parent.RightAccent
-local leftCent = script.Parent.LeftAccent
+--Accents animation names have changed
+local rightCent = script.Parent.RightA
+local leftCent = script.Parent.LeftA
 local animationTrack
 
 local snare = script.Parent.Snare
@@ -36,9 +38,13 @@ local uiEvents = coroutine.create(function()
 						keyFrame.Visible = method.Value
 					end
 					if v.Name == "Left" or v.Name == "Right" then
+						animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(script.Parent[v.Name])
+						animationTrack:Play()
 						script.Parent.TalkToServer:InvokeServer(false,tostring(v.Name))
 					end
 					if v.Name == "LeftA" or v.Name == "RightA" then
+						animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(script.Parent[v.Name])
+						animationTrack:Play()
 						script.Parent.TalkToServer:InvokeServer(true,tostring(v.Name))
 					end
 				end)
