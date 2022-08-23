@@ -9,11 +9,11 @@
 local correctAudio = {
 	A = {
 		Name = "Crash",
-		ID = "rbxassetid://9744434475"
+		ID = "rbxassetid://10580969595"
 	},
 	Ab = {
 		Name = "Choke",
-		ID = "rbxassetid://9744434475"
+		ID = "rbxassetid://10580967730"
 	}
 }
 

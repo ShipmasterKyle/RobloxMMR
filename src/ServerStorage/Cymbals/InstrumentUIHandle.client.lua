@@ -14,14 +14,6 @@ local isActive = false
 local tool = script.Parent
 local copyBox = UI
 
-local hornsUp = script.Parent.Still
---For this to function correctly your animations need to have the Action Priority
-local right = script.Parent.Right
-local left = script.Parent.Left
---Accents animation names have changed
-local rightCent = script.Parent.RightA
-local leftCent = script.Parent.LeftA
-local animationTrack
 
 local snare = script.Parent.Snare
 local stick = script.Parent.LeftStick
@@ -51,16 +43,12 @@ tool.Equipped:Connect(function()
 	print("Activated")
 	coroutine.resume(uiEvents)
 	script.Parent.StrapUp:InvokeServer()
-	animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(hornsUp)
-	animationTrack:Play()
-	print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 end)
 
 tool.Unequipped:Connect(function()
 	print("Deactivated")
 	isActive = false
 	script.Parent.HangUpAll:FireServer()
-	animationTrack:Stop()
 	copyBox.Parent = workspace
 	coroutine.yield(uiEvents)
 end)
@@ -70,14 +58,8 @@ UIS.InputBegan:Connect(function(input,chatting)
 		print(accentsAllowed)
 		if input.KeyCode == Enum.KeyCode.G then
 			script.Parent.TalkToServer:InvokeServer(false,tostring("Crash"))
-			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)
-			animationTrack:Play()
-			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 		elseif input.KeyCode == Enum.KeyCode.H then
 			script.Parent.TalkToServer:InvokeServer(false,tostring("Choke"))
-			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(right)
-			animationTrack:Play()
-			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 		end
 	end
 end)
