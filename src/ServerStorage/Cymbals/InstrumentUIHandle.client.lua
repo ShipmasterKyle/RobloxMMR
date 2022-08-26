@@ -15,9 +15,6 @@ local tool = script.Parent
 local copyBox = UI
 
 
-local snare = script.Parent.Snare
-local stick = script.Parent.LeftStick
-
 local accentsAllowed = false
 
 local uiEvents = coroutine.create(function()
