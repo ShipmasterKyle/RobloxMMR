@@ -16,7 +16,9 @@ eve.OnServerEvent:Connect(function(plr)
 				v.Anchored = false
 			end
 		end
-		snare:SetPrimaryPartCFrame(humroot.CFrame + Vector3.new(0,-1,2))
+		--First Make the character face forward so we can weld it correctly
+		humroot.CFrame = CFrame.new(humroot.CFrame.Position) * CFrame.Angles(0,0,0)
+		snare:SetPrimaryPartCFrame(humroot.CFrame + Vector3.new(0,1,-2))
 		weld1.Part0 = snare.PrimaryPart --> This is a part now
 		weld1.Part1 = humroot
 		weld1.Parent = snare

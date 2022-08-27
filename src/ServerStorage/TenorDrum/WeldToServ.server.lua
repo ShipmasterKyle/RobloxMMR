@@ -8,15 +8,15 @@ eve.OnServerEvent:Connect(function(plr)
 		local weld2 = Instance.new("WeldConstraint")
 		local humroot = char.HumanoidRootPart
 		local leftHand = char.LeftHand
-		local snare = script.Parent.BassDrum
-		local stick = script.Parent.LeftStick
+		local snare = script.Parent.TenorDrum
+		local stick = script.Parent.LeftMallet
 		--Fix the Anchor Problem
 		for i,v in pairs(snare:GetDescendants()) do
 			if v:IsA("BasePart") then
 				v.Anchored = false
 			end
 		end
-		snare:SetPrimaryPartCFrame(humroot.CFrame + Vector3.new(0,-1,2))
+		snare:SetPrimaryPartCFrame(humroot.CFrame + Vector3.new(0,0,2))
 		weld1.Part0 = snare.PrimaryPart --> This is a part now
 		weld1.Part1 = humroot
 		weld1.Parent = snare
