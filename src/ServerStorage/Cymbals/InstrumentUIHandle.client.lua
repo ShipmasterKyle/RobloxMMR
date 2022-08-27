@@ -14,6 +14,10 @@ local isActive = false
 local tool = script.Parent
 local copyBox = UI
 
+local notes = {
+	"Crash",
+	"Choke"
+}
 
 local accentsAllowed = false
 

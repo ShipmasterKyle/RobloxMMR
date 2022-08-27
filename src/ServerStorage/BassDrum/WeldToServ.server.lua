@@ -16,8 +16,8 @@ eve.OnServerEvent:Connect(function(plr)
 				v.Anchored = false
 			end
 		end
-		snare.CFrame = humroot.CFrame + Vector3.new(0,-1,2)
-		weld1.Part0 = snare --> This is a part now
+		snare:SetPrimaryPartCFrame(humroot.CFrame + Vector3.new(0,-1,2))
+		weld1.Part0 = snare.PrimaryPart --> This is a part now
 		weld1.Part1 = humroot
 		weld1.Parent = snare
 		weld1.Name = "Weld1"

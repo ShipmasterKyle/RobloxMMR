@@ -23,7 +23,7 @@ eve.OnServerInvoke = function(plr)
 			end
 		end
 		--Now weld the snare
-		snare.CFrame = CFrame.new(humroot.Position + Vector3.new(0,-1,-2))
+		snare.CFrame = CFrame.new(humroot.Position + Vector3.new(-1,-1,-2))
 		--Also turn the snare correctly
 		snare.CFrame = snare.CFrame * CFrame.Angles(0,math.rad(32.1),math.rad(90))
 		weld1.Part0 = snare --> This is a part now
@@ -31,6 +31,8 @@ eve.OnServerInvoke = function(plr)
 		weld1.Parent = snare
 		weld1.Name = "Weld1"
 		stick.CFrame = leftHand.CFrame
+		stick.CFrame = CFrame.new(leftHand.Position + Vector3(-1,0,0))
+		stick.CFrame = stick.CFrame * CFrame.Angles(0,math.rad(45),0)
 		--Orientation: 78.87, 0.47, 117.09
 		weld2.Part0 = stick
 		weld2.Part1 = leftHand
