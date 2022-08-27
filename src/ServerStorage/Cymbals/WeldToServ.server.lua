@@ -15,7 +15,7 @@ eve.OnServerInvoke = function(plr)
 		humroot.CFrame = CFrame.new(humroot.CFrame.Position) * CFrame.Angles(0,0,0)
 		--Now weld the snare
 		snare:SetPrimaryPartCFrame(CFrame.new(leftHand.Position))
-		weld1.Part0 = snare.PrimaryPart --> This is a part now
+		weld1.Part0 = snare.PrimaryPart
 		weld1.Part1 = leftHand
 		weld1.Parent = snare
 		weld1.Name = "Weld1"
