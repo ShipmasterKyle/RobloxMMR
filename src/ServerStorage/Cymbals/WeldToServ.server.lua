@@ -20,7 +20,6 @@ eve.OnServerInvoke = function(plr)
 		weld1.Parent = snare
 		weld1.Name = "Weld1"
 		stick:SetPrimaryPartCFrame(CFrame.new(rightHand.Position))
-		rightHand.CFrame
 		weld2.Part0 = stick.PrimaryPart
 		weld2.Part1 = rightHand
 		weld2.Parent = stick
