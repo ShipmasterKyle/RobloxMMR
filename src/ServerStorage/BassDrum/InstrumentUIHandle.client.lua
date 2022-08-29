@@ -6,6 +6,8 @@
 ]]
 
 local UI = script:WaitForChild("Instrument"):Clone()
+local method = script.Parent.MobileMode
+local keyFrame = UI.MainFrame.MobileMethod
 local UIS = game:GetService("UserInputService")
 local audioHandle = require(script.Parent.AudioHandle)
 local isActive = false
@@ -69,16 +71,6 @@ UIS.InputBegan:Connect(function(input,chatting)
 		elseif input.KeyCode == Enum.KeyCode.H then
 			script.Parent.TalkToServer:FireServer(false,tostring("Right"))
 			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(right)
-			animationTrack:Play()
-			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
-		elseif input.KeyCode == Enum.KeyCode.F then
-			script.Parent.TalkToServer:FireServer(true,tostring("Click"))
-			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(rightCent)
-			animationTrack:Play()
-			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
-		elseif input.KeyCode == Enum.KeyCode.J then
-			script.Parent.TalkToServer:FireServer(true,tostring("Click"))
-			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(leftCent)
 			animationTrack:Play()
 			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 		end

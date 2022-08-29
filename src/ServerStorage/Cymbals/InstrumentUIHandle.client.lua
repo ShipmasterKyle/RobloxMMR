@@ -19,8 +19,6 @@ local notes = {
 	"Choke"
 }
 
-local accentsAllowed = false
-
 local uiEvents = coroutine.create(function()
 	while wait(1) do
 		for i,v in pairs(copyBox:GetDescendants()) do
@@ -56,11 +54,10 @@ end)
 
 UIS.InputBegan:Connect(function(input,chatting)
 	if not chatting and isActive == true then
-		print(accentsAllowed)
-		if input.KeyCode == Enum.KeyCode.G then
-			script.Parent.TalkToServer:InvokeServer(false,tostring("Crash"))
-		elseif input.KeyCode == Enum.KeyCode.H then
-			script.Parent.TalkToServer:InvokeServer(false,tostring("Choke"))
+		if input.KeyCode == Enum.KeyCode.E then
+			script.Parent.TalkToServer:InvokeServer("Crash")
+		elseif input.KeyCode == Enum.KeyCode.Q then
+			script.Parent.TalkToServer:InvokeServer("Choke")
 		end
 	end
 end)

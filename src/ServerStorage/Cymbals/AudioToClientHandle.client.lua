@@ -30,9 +30,12 @@ function find(array,item)
 end
 
 while wait(1) do
-    for i,v in pairs(notes:GetChildren()) do
-		if find(correctAudio,v) then
-			v.SoundId = find(correctAudio,v).ID
+	if script.Parent.Parent == game.Players.LocalPlayer.Character then
+		print("Active")
+		for i,v in pairs(notes:GetChildren()) do
+			if find(correctAudio,v) then
+				v.SoundId = find(correctAudio,v).ID
+			end
 		end
 	end
 end
