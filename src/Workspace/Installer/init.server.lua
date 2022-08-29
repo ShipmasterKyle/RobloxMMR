@@ -1,4 +1,8 @@
-local models = workspace.Installer.Models
+local models
+
+if workspace.Installer:FindFirstChild("Models") then
+	models = workspace.Installer.Models
+end
 
 local mainMessage = [[
 	Welcome to the RMA March Engine
@@ -15,6 +19,14 @@ local mainMessage = [[
     Using Custom Models? Make sure if you're updating to remove your handles from your tools before pressing Start.
 	
 	This kit is licensed by the Roblox Music Association. All Right Reserved.
+]]
+
+local ErrorMessage = [[
+	Error
+
+	This means something somehow went wrong. Theres probably a message above this or in the output.
+
+	Try redownloading the kit or inserting it. If the issue persists create a ticket on the github page or DM ShipmasterKyle#8071
 ]]
 
 local main = Instance.new("ScreenGui")
@@ -62,27 +74,42 @@ mainBox.Parent = frame
 nextbtn.Parent = frame
 
 nextbtn.MouseButton1Click:Connect(function()
-	nextbtn.Visible = false
-	mainBox.Text = "Please Wait..."
-	for i,v in pairs(models:GetChildren()) do
-		if v.Name == "Adonis_Loader" then
-			if not workspace:FindFirstChild(v.Name) then
-				v.Parent = workspace
+	if models then
+		nextbtn.Visible = false
+		mainBox.Text = "Please Wait..."
+		for i,v in pairs(models:GetChildren()) do
+			if v.Name == "Adonis_Loader" then
+				if not workspace:FindFirstChild(v.Name) then
+					v.Parent = workspace
+				end
+			else
+				if game.ServerStorage:FindFirstChild(v.Name) then
+					game.ServerStorage[v.Name]:Destroy()
+				end
+				v.Parent = game.ServerStorage
+				wait(0.0125)
 			end
+		end
+		-- local remote = Instance.new("RemoteEvent")
+		-- remote.Name = "March"
+		-- remote.Parent = game.ReplicatedStorage
+		mainBox.Text = "All Done! Enjoy! You can delete the Installer Script in workspace."
+		newbtn.Text = "Close"
+		newbtn.Visible = true
+	else
+		nextbtn.Visible = false
+		mainBox.Text = "Models Not Found, Attempting to build from scratch."
+		wait(1)
+		local instruments = game.ServerStorage:GetDescendants()
+		if #instruments ~= 0 or not game.ServerStorage:FindFirstOfClass then --Check for the Instruments scripts.
+			mainBox.Text = [[No recoverable scripts founds.]]..ErrorMessage
 		else
-			if game.ServerStorage:FindFirstChild(v.Name) then
-				game.ServerStorage[v.Name]:Destroy()
+			mainBox.Text = "Scripts Found! Attempting to rebuild. This may take a few minutes"
+			for i,v in pairs(game.ServerStorage:GetDescendants()) do
+				if 
 			end
-			v.Parent = game.ServerStorage
-			wait(0.0125)
 		end
 	end
-	-- local remote = Instance.new("RemoteEvent")
-	-- remote.Name = "March"
-	-- remote.Parent = game.ReplicatedStorage
-	mainBox.Text = "All Done! Enjoy! You can delete the Installer Script in workspace."
-	newbtn.Text = "Close"
-	newbtn.Visible = true
 end)
 
 newbtn.MouseButton1Click:Connect(function()
