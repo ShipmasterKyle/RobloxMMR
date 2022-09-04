@@ -20,7 +20,7 @@ script.Parent.TalkToServer.OnServerInvoke = function(plr,a,note)
 	print("Request Caught")
 	if a then
 		print("Accent!")
-		audioServer:PlayAccent(note)
+		script.Parent.TalkToServer:
 	else
 		print("No accent ;-;")
 		audioServer:PlayNote(note)
