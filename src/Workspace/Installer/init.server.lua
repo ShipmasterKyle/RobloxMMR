@@ -29,6 +29,20 @@ local ErrorMessage = [[
 	Try redownloading the kit or inserting it. If the issue persists create a ticket on the github page or DM ShipmasterKyle#8071
 ]]
 
+--Installer Details for people who use the rblx file instead of the rbxm
+local brass = {
+	"Tuba",
+	"Trumpet",
+	"Trombone"
+}
+
+local line = {
+	"Cymbals",
+	"TenorDrum",
+	"BassDrum",
+	"Snare"
+}
+
 local main = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
 local btn = Instance.new("TextButton")
@@ -101,12 +115,16 @@ nextbtn.MouseButton1Click:Connect(function()
 		mainBox.Text = "Models Not Found, Attempting to build from scratch."
 		wait(1)
 		local instruments = game.ServerStorage:GetDescendants()
-		if #instruments ~= 0 or not game.ServerStorage:FindFirstOfClass then --Check for the Instruments scripts.
+		if #instruments ~= 0 or not game.ServerStorage:FindFirstOfClass("Tool") then --Check for the Instruments scripts.
 			mainBox.Text = [[No recoverable scripts founds.]]..ErrorMessage
 		else
 			mainBox.Text = "Scripts Found! Attempting to rebuild. This may take a few minutes"
 			for i,v in pairs(game.ServerStorage:GetDescendants()) do
-				if 
+				if v.ClassName == "Tool" then
+					if table.find(brass, v.Name) then
+						print("Coming Soon")
+					end
+				end
 			end
 		end
 	end
