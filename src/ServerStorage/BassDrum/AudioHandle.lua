@@ -27,7 +27,6 @@ end
 function module:PlayAccent(note)
 	if note then
 		if script.Parent.Handle.Notes:FindFirstChild(note) then
-			script.Parent.Handle.Notes[note]:Play()
 			script.Parent.Handle.Notes[note].Volume = 2
 		end
 	end

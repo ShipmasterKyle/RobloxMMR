@@ -73,9 +73,15 @@ end)
 
 function playSound(Note)
 	if accentsAllowed == true then
-		audioHandle:PlayAccent(Note)
+		if script.Parent.Handle.Notes:FindFirstChild(note) then
+			audioHandle:PlayAccent(Note)
+			script.Parent.Handle.Notes[Note]:Play()
+		end
 	else
-		audioHandle:PlayNote(Note)
+		if script.Parent.Handle.Notes:FindFirstChild(note) then
+			audioHandle:PlayNote(Note)
+			script.Parent.Handle.Notes[Note]:Play()
+		end
 	end
 end
 

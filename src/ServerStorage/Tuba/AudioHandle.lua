@@ -18,7 +18,6 @@ end
 function module:PlayNote(note)
 	if note then
 		if script.Parent.Handle.Notes:FindFirstChild(note) then
-			script.Parent.Handle.Notes[note]:Play()
 			script.Parent.Handle.Notes[note].Volume = 1
 
 		end
@@ -28,8 +27,7 @@ end
 --Plays a note with an accent.
 function module:PlayAccent(notes)
 	if note then
-		if script.Parent.Handle.Notes:FindFirstChild(note) then
-			script.Parent.Handle.Notes[note]:Play()
+		if script.Parent.Handle.Notes:FindFirstChild(note) then]
 			script.Parent.Handle.Notes[note].Volume = 10
 		end
 	end
