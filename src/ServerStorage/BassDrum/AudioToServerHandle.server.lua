@@ -1,6 +1,6 @@
 --[[
 	AudioToServerHandle
-	Responsible for general sanity checks on audio.
+	Responsible for making and santizing audio
 	Written by Drgametime3d (aka ShipmasterKyle) 2022. 
 	Do not steal.
 ]]
@@ -23,6 +23,14 @@ local correctAudio = {
 
 --The notes folder
 local notes = script.Parent.Handle.Notes
+--Make so all the audios are up to date
+note:ClearAllChildren()
+for i,v in pairs(correctAudio) do
+	local audio = Instance.new("Sound")
+	audio.Parent = notes
+	audio.Name = v.Name
+	audio.SoundId = v.ID
+end
 
 function find(array,item)
 	for i,v in pairs(array) do
@@ -40,4 +48,3 @@ while wait(1) do
 		end
 	end
 end
-

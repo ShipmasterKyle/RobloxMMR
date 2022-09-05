@@ -1,6 +1,6 @@
 --[[
-	AudioToServerHandle
-	Responsible for general sanity checks on audio.
+	AudioToClientHandle
+	Responsible for making and santizing audio
 	Written by Drgametime3d (aka ShipmasterKyle) 2022. 
 	Do not steal.
 ]]
@@ -31,7 +31,6 @@ for i,v in pairs(correctAudio) do
 	audio.Name = v.Name
 	audio.SoundId = v.ID
 end
-
 
 function find(array,item)
 	for i,v in pairs(array) do

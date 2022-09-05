@@ -59,6 +59,15 @@ local correctAudio = {
 
 --The notes folder
 local notes = script.Parent.Handle.Notes
+--Make so all the audios are up to date
+note:ClearAllChildren()
+for i,v in pairs(correctAudio) do
+	local audio = Instance.new("Sound")
+	audio.Parent = notes
+	audio.Name = v.Name
+	audio.SoundId = v.ID
+end
+
 
 function find(array,item)
 	for i,v in pairs(array) do
