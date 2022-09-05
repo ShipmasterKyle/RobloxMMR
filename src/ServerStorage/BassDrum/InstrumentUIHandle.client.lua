@@ -23,6 +23,11 @@ local animationTrack
 
 local accentsAllowed = false
 
+local notes = {
+	"Left",
+	"Right"
+}
+
 local uiEvents = coroutine.create(function()
 	while wait(1) do
 		for i,v in pairs(copyBox:GetDescendants()) do
