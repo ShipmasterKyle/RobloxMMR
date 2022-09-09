@@ -39,7 +39,7 @@ copyBox.MainFrame.OctaveCount.Text = octave.Value
 local uiEvents = coroutine.create(function()
 	while wait(1) do
 		--Quick Sanity Check to make sure Octaves don't go over the octave limits
-		if (not octave.Value) <= maxOct or (not octave.Value) >= minOct then
+		if octave.Value >= maxOct or octave.Value <= minOct then
 			if octave.Value > maxOct then
 				octave.Value = maxOct
 			end
