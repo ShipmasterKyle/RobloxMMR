@@ -20,7 +20,7 @@ local correctAudio = {
 --The notes folder
 local notes = script.Parent.Handle.Notes
 --Make so all the audios are up to date
-note:ClearAllChildren()
+notes:ClearAllChildren()
 for i,v in pairs(correctAudio) do
 	local audio = Instance.new("Sound")
 	audio.Parent = notes

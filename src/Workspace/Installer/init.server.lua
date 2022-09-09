@@ -89,7 +89,7 @@ mainBox.Parent = frame
 nextbtn.Parent = frame
 
 nextbtn.MouseButton1Click:Connect(function()
-	if SoundService.RespectFilteringEnabled == false then
+	if game.SoundService.RespectFilteringEnabled == false then
 		if models then
 			nextbtn.Visible = false
 			mainBox.Text = "Please Wait..."
