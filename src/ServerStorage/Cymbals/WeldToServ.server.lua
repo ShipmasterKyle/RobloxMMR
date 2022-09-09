@@ -7,33 +7,21 @@ eve.OnServerInvoke = function(plr)
 		local weld1 = Instance.new("WeldConstraint")
 		local weld2 = Instance.new("WeldConstraint")
 		local humroot = char.HumanoidRootPart
+		local rightHand = char.RightHand
 		local leftHand = char.LeftHand
-		local snare = script.Parent.Snare
-		local stick = script.Parent.LeftStick
+		local snare = script.Parent.LeftCymbal
+		local stick = script.Parent.RightCymbal
 		--First Make the character face forward so we can weld it correctly
 		humroot.CFrame = CFrame.new(humroot.CFrame.Position) * CFrame.Angles(0,0,0)
-		--Next Make sure we're all the snare is put together correctly including the descendants (hopefully this doesn't cause any performance issues...)
-		for i,v in pairs(snare:GetDescendants()) do
-			if v:IsA("BasePart") then
-				v.Anchored = false --Make sure it can be rotated
-				local weld = Instance.new("WeldConstraint")
-				weld.Part0 = v
-				weld.Part1 = snare
-				weld.Parent = v
-			end
-		end
 		--Now weld the snare
-		snare.CFrame = CFrame.new(humroot.Position + Vector3.new(-1,-1,-2))
-		--Also turn the snare correctly
-		snare.CFrame = snare.CFrame * CFrame.Angles(0,math.rad(32.1),math.rad(90))
-		weld1.Part0 = snare --> This is a part now
-		weld1.Part1 = humroot
+		snare:SetPrimaryPartCFrame(CFrame.new(leftHand.Position))
+		weld1.Part0 = snare.PrimaryPart
+		weld1.Part1 = leftHand
 		weld1.Parent = snare
 		weld1.Name = "Weld1"
-		stick.CFrame = leftHand.CFrame
-		--Orientation: 78.87, 0.47, 117.09
-		weld2.Part0 = stick
-		weld2.Part1 = leftHand
+		stick:SetPrimaryPartCFrame(CFrame.new(rightHand.Position))
+		weld2.Part0 = stick.PrimaryPart
+		weld2.Part1 = rightHand
 		weld2.Parent = stick
 		weld2.Name = "Weld2"
 	end
@@ -42,7 +30,7 @@ end
 eva.OnServerInvoke = function(plr)
 	if plr then
 		local char = plr.Character
-		char.Snare.Weld1:Destroy()
-		char.LeftStick.Weld2:Destroy()
+		char.LeftCymbal.Weld1:Destroy()
+		char.RightCymbal.Weld2:Destroy()
 	end
 end

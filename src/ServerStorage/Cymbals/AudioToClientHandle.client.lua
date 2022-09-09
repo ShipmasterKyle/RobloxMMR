@@ -1,6 +1,6 @@
 --[[
-	AudioToServerHandle
-	Responsible for making and santizing audio
+	AudioToClientHandle
+	Responsible for general sanity checks on audio.
 	Written by Drgametime3d (aka ShipmasterKyle) 2022. 
 	Do not steal.
 ]]
@@ -8,16 +8,12 @@
 --Table for the correct audios seen in the audio group.
 local correctAudio = {
 	A = {
-		Name = "Left",
-		ID = "rbxassetid://9744434475"
+		Name = "Crash",
+		ID = "rbxassetid://10580969595"
 	},
 	Ab = {
-		Name = "Right",
-		ID = "rbxassetid://9744434475"
-	},
-	B = {
-		Name = "Click",
-		ID = ''
+		Name = "Choke",
+		ID = "rbxassetid://10580967730"
 	}
 }
 
@@ -32,6 +28,7 @@ for i,v in pairs(correctAudio) do
 	audio.SoundId = v.ID
 end
 
+
 function find(array,item)
 	for i,v in pairs(array) do
 		if v.Name == item then
@@ -42,9 +39,12 @@ function find(array,item)
 end
 
 while wait(1) do
-    for i,v in pairs(notes:GetChildren()) do
-		if find(correctAudio,v) then
-			v.SoundId = find(correctAudio,v).ID
+	if script.Parent.Parent == game.Players.LocalPlayer.Character then
+		print("Active")
+		for i,v in pairs(notes:GetChildren()) do
+			if find(correctAudio,v) then
+				v.SoundId = find(correctAudio,v).ID
+			end
 		end
 	end
 end

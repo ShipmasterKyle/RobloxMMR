@@ -63,6 +63,14 @@ local uiEvents = coroutine.create(function()
 							chat:Chat(game.Players.LocalPlayer, obj.Say, "Blue" )
 						end
 					end)
+					if v.Name == "Whistle" then
+						v.MouseButton1Down:Connect(function()
+							script.Parent.WhistleSound:FireServer()
+						end)
+						v.MouseButton1Up:Connect(function()
+							script.Parent.HangUp:FireServer()
+						end)
+					end
                 end
             end
 		elseif isActive == false then

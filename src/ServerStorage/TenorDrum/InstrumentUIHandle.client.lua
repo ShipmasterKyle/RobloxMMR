@@ -14,19 +14,12 @@ local isActive = false
 local tool = script.Parent
 local copyBox = UI
 
-local hornsUp = script.Parent.Still
-local right = script.Parent.Right
-local left = script.Parent.Left
-local rightCent = script.Parent.RightAccent
-local leftCent = script.Parent.LeftAccent
-local animationTrack
-
-local accentsAllowed = false
-
 local notes = {
 	"Left",
 	"Right"
 }
+
+local accentsAllowed = false
 
 local uiEvents = coroutine.create(function()
 	while wait(1) do
@@ -51,16 +44,12 @@ tool.Equipped:Connect(function()
 	print("Activated")
 	coroutine.resume(uiEvents)
 	script.Parent.StrapUp:FireServer()
-	animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(hornsUp)
-	animationTrack:Play()
-	print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 end)
 
 tool.Unequipped:Connect(function()
 	print("Deactivated")
 	isActive = false
 	script.Parent.HangUpAll:FireServer()
-	animationTrack:Stop()
 	copyBox.Parent = workspace
 	coroutine.yield(uiEvents)
 end)
@@ -70,14 +59,8 @@ UIS.InputBegan:Connect(function(input,chatting)
 		print(accentsAllowed)
 		if input.KeyCode == Enum.KeyCode.G then
 			script.Parent.TalkToServer:FireServer(false,tostring("Left"))
-			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)
-			animationTrack:Play()
-			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 		elseif input.KeyCode == Enum.KeyCode.H then
 			script.Parent.TalkToServer:FireServer(false,tostring("Right"))
-			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(right)
-			animationTrack:Play()
-			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 		end
 	end
 end)

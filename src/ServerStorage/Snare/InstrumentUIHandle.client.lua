@@ -14,8 +14,8 @@ local isActive = false
 local tool = script.Parent
 local copyBox = UI
 
+--For this to function correctly your animations need to have the "Action" Priority
 local hornsUp = script.Parent.Still
---For this to function correctly your animations need to have the Action Priority
 local right = script.Parent.Right
 local left = script.Parent.Left
 --Accents animation names have changed

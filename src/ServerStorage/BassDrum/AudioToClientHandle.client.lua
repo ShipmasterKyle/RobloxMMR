@@ -1,5 +1,5 @@
 --[[
-	AudioToServerHandle
+	AudioToClientHandle
 	Responsible for making and santizing audio
 	Written by Drgametime3d (aka ShipmasterKyle) 2022. 
 	Do not steal.
@@ -48,3 +48,4 @@ while wait(1) do
 		end
 	end
 end
+

@@ -44,12 +44,12 @@ local uiEvents = coroutine.create(function()
 				end)
 				v.MouseButton1Down:Connect(function()
 					if table.find(notes, v.Name) then
-						script.Parent.TalkToServer:FireServer(false,v.Name)
+						script.Parent.TalkToServer:InvokeServer(false,v.Name)
 					end
 				end)
 				v.MouseButton1Up:Connect(function()
 					if table.find(notes, v.Name) then
-						script.Parent.HangUp:FireServer(false,v.Name)
+						script.Parent.HangUp:InvokeServer(false,v.Name)
 					end
 				end)
 			end

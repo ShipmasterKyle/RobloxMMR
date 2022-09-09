@@ -1,24 +1,22 @@
 local eve = script.Parent.StrapUp
 local eva = script.Parent.CleanUp
 
-eve.OnServerEvent:Connect(function(plr)
+eve.OnServerInvoke = function(plr)
 	local char = plr.Character
 	if char and char:FindFirstChild("LeftHand") then
 		local weld1 = Instance.new("WeldConstraint")
 		local weld2 = Instance.new("WeldConstraint")
 		local humroot = char.HumanoidRootPart
 		local leftHand = char.LeftHand
-		local snare = script.Parent.BassDrum
-		local stick = script.Parent.LeftStick
+		local snare = script.Parent.TenorDrum
+		local stick = script.Parent.LeftMallet
 		--Fix the Anchor Problem
 		for i,v in pairs(snare:GetDescendants()) do
 			if v:IsA("BasePart") then
 				v.Anchored = false
 			end
 		end
-		--First Make the character face forward so we can weld it correctly
-		humroot.CFrame = CFrame.new(humroot.CFrame.Position) * CFrame.Angles(0,0,0)
-		snare:SetPrimaryPartCFrame(humroot.CFrame + Vector3.new(0,1,-2))
+		snare:SetPrimaryPartCFrame(humroot.CFrame + Vector3.new(0,0,2))
 		weld1.Part0 = snare.PrimaryPart --> This is a part now
 		weld1.Part1 = humroot
 		weld1.Parent = snare
@@ -29,12 +27,12 @@ eve.OnServerEvent:Connect(function(plr)
 		weld2.Parent = stick
 		weld2.Name = "Weld2"
 	end
-end)
+end
 
-eva.OnServerEvent:Connect(function(plr)
+eva.OnServerInvoke = function(plr)
 	if plr then
 		local char = plr.Character
 		char.Snare.Weld1:Destroy()
 		char.LeftStick.Weld2:Destroy()
 	end
-end)
+end
