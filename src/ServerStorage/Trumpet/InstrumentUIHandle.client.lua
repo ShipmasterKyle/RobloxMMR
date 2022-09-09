@@ -32,6 +32,9 @@ local notes = {
 	"G Flat"
 }
 
+--Initialize the Counter
+copyBox.MainFrame.OctaveCount.Text = octave.Value
+
 local uiEvents = coroutine.create(function()
 	while wait(1) do
 		for i,v in pairs(copyBox:GetDescendants()) do
@@ -41,20 +44,31 @@ local uiEvents = coroutine.create(function()
 						method.Value = not method.Value
 						keyFrame.Visible = method.Value
 					end
+					if v.Name == "OctaveDown" then
+						octave.Value -= 1
+					end
+					if v.Name =="OctaveUp" then
+						octave.Value += 1
+					end
 				end)
 				v.MouseButton1Down:Connect(function()
 					if table.find(notes, v.Name) then
-						script.Parent.TalkToServer:InvokeServer(false,v.Name)
+						script.Parent.TalkToServer:InvokeServer(false,v.Name.." "..octave.Value)
 					end
 				end)
 				v.MouseButton1Up:Connect(function()
 					if table.find(notes, v.Name) then
-						script.Parent.HangUp:InvokeServer(false,v.Name)
+						script.Parent.HangUp:InvokeServer(false,v.Name.." "..octave.Value)
 					end
 				end)
 			end
 		end
 	end
+end)
+
+--Collect the Change Signal for octaves and update the UI accordingly
+octave.Changed:Connect(function()
+	copyBox.MainFrame.OctaveCount.Text = octave.Value
 end)
 
 local accentsAllowed = false
