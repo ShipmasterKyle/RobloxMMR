@@ -33,10 +33,20 @@ local notes = {
 }
 
 --Initialize the Counter
+octave.Value = minOct
 copyBox.MainFrame.OctaveCount.Text = octave.Value
 
 local uiEvents = coroutine.create(function()
 	while wait(1) do
+		--Quick Sanity Check to make sure Octaves don't go over the octave limits
+		if (not octave.Value) <= maxOct or (not octave.Value) >= minOct then
+			if octave.Value > maxOct then
+				octave.Value = maxOct
+			end
+			if octave.Value < minOct then
+				octave.Value = maxOct
+			end
+		end
 		for i,v in pairs(copyBox:GetDescendants()) do
 			if v:IsA("TextButton") then
 				v.MouseButton1Click:Connect(function()
