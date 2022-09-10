@@ -8,54 +8,103 @@
 --Table for the correct audios seen in the audio group.
 local correctAudio = {
 	A = {
-		Name = "A Natural",
-		ID = "rbxassetid://9773645539"
+		Name = "A Natural 2",
+		ID = "rbxassetid://10865254336"
 	},
 	Ab = {
-		Name = "A Flat",
-		ID = "rbxassetid://9773643681"
+		Name = "A Flat 2",
+		ID = "rbxassetid://10865254491"
 	},
 	B = {
-		Name = "B Natural",
-		ID = "rbxassetid://9773654191"
+		Name = "B Natural 2",
+		ID = "rbxassetid://10865254214"
 	},
 	Bb = {
-		Name = "B Flat",
-		ID = "rbxassetid://9773651258"
+		Name = "B Flat 2",
+		ID = "rbxassetid://10865254064"
 	},
 	C = {
-		Name = "C Natural",
-		ID = "rbxassetid://9773655666"
+		Name = "C Natural 2",
+		ID = "rbxassetid://10865253928"
 	},
 	D = {
-		Name = "D Natural",
-		ID = "rbxassetid://9773667380"
+		Name = "D Natural 2",
+		ID = "rbxassetid://10865253708"
 	},
 	Db = {
-		Name = "D Flat",
-		ID = "rbxassetid://9773663988"
+		Name = "D Flat 2",
+		ID = "rbxassetid://10865253851"
 	},
 	E = {
-		Name = "E Natural",
-		ID = "rbxassetid://9773681616"
+		Name = "E Natural 2",
+		ID = "rbxassetid://10865253515"
 	},
 	Eb = {
-		Name = "E Flat",
-		ID = "rbxassetid://9773677882"
+		Name = "E Flat 2",
+		ID = "rbxassetid://10865253392"
 	},
 	F = {
-		Name = "F Natural",
-		ID = "rbxassetid://9773793116"
+		Name = "F Natural 2",
+		ID = "rbxassetid://10865256433"
 	},
 	G = {
-		Name = "G Natural",
-		ID = "rbxassetid://9773798633"
+		Name = "G Natural 2",
+		ID = "rbxassetid://10865252853"
 	},
 	Gb = {
-		Name = "G Flat",
-		ID = "rbxassetid://9773796743"
+		Name = "G Flat 2",
+		ID = "rbxassetid://10865256022"
+	},
+	qA = {
+		Name = "A Natural 3",
+		ID = "rbxassetid://10865252693"
+	},
+	qAb = {
+		Name = "A Flat 3",
+		ID = "rbxassetid://10865252985"
+	},
+	qB = {
+		Name = "B Natural 3",
+		ID = "rbxassetid://10865252576"
+	},
+	qBb = {
+		Name = "B Flat 3",
+		ID = "rbxassetid://10865255915"
+	},
+	qC = {
+		Name = "C Natural 3",
+		ID = "rbxassetid://10865251794"
+	},
+	qD = {
+		Name = "D Natural 3",
+		ID = "rbxassetid://10865252275"
+	},
+	qDb = {
+		Name = "D Flat 3",
+		ID = "rbxassetid://10865252394"
+	},
+	qE = {
+		Name = "E Natural 3",
+		ID = "rbxassetid://10865255348"
+	},
+	qEb = {
+		Name = "E Flat 3",
+		ID = "rbxassetid://10865252005"
+	},
+	qF = {
+		Name = "F Natural 3",
+		ID = "rbxassetid://10865251642"
+	},
+	qG = {
+		Name = "G Natural 3",
+		ID = "rbxassetid://10865252475"
+	},
+	qGb = {
+		Name = "G Flat 3",
+		ID = "rbxassetid://10865252275"
 	}
 }
+
 
 --The notes folder
 local notes = script.Parent.Handle.Notes

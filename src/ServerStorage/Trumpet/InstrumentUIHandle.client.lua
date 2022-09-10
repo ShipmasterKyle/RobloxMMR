@@ -128,13 +128,9 @@ UIS.InputBegan:Connect(function(input,chatting)
 		elseif input.KeyCode == Enum.KeyCode.M then
 			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("G Flat "..octave.Value))
 		elseif input.KeyCode == Enum.KeyCode.Equals or input.KeyCode == Enum.KeyCode.Plus then
-			if octave.Value ~= maxOct and octave.Value > minOct then
-				octave.Value += 1
-			end
+			octave.Value += 1
 		elseif input.KeyCode == Enum.KeyCode.Minus then
-			if octave.Value < maxOct and octave.Value ~= minOct then
-				octave.Value -= 1
-			end
+			octave.Value -= 1
 		end
 	end
 end)
