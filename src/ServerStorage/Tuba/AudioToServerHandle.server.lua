@@ -45,7 +45,7 @@ local correctAudio = {
 	},
 	F = {
 		Name = "F Natural 2",
-		ID = "rbxassetid://10865256433"
+		ID = "rbxassetid://10865253292"
 	},
 	G = {
 		Name = "G Natural 2",
@@ -53,7 +53,7 @@ local correctAudio = {
 	},
 	Gb = {
 		Name = "G Flat 2",
-		ID = "rbxassetid://10865256022"
+		ID = "rbxassetid://10981633689"
 	},
 	qA = {
 		Name = "A Natural 3",
@@ -69,7 +69,7 @@ local correctAudio = {
 	},
 	qBb = {
 		Name = "B Flat 3",
-		ID = "rbxassetid://10865255915"
+		ID = "rbxassetid://10865253129"
 	},
 	qC = {
 		Name = "C Natural 3",
@@ -85,7 +85,7 @@ local correctAudio = {
 	},
 	qE = {
 		Name = "E Natural 3",
-		ID = "rbxassetid://10865255348"
+		ID = "rbxassetid://10865253070"
 	},
 	qEb = {
 		Name = "E Flat 3",
@@ -101,7 +101,7 @@ local correctAudio = {
 	},
 	qGb = {
 		Name = "G Flat 3",
-		ID = "rbxassetid://10865252275"
+		ID = "rbxassetid://10865252148"
 	}
 }
 

@@ -13,7 +13,7 @@ local correctAudio = {
 	},
 	Ab = {
 		Name = "A Flat 3",
-		ID = "rbxassetid://10320392772"
+		ID = "rbxassetid://10981571498"
 	},
 	B = {
 		Name = "B Natural 3",
@@ -25,7 +25,7 @@ local correctAudio = {
 	},
 	C = {
 		Name = "C Natural 3",
-		ID = "rbxassetid://10865257358"
+		ID = "rbxassetid://10865257193"
 	},
 	D = {
 		Name = "D Natural 3",
@@ -41,7 +41,7 @@ local correctAudio = {
 	},
 	Eb = {
 		Name = "E Flat 3",
-		ID = "rbxassetid://10865257032"
+		ID = "rbxassetid://10865256763"
 	},
 	F = {
 		Name = "F Natural 3",

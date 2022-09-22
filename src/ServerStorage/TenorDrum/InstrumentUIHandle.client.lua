@@ -43,7 +43,7 @@ tool.Equipped:Connect(function()
 	isActive = true
 	print("Activated")
 	coroutine.resume(uiEvents)
-	script.Parent.StrapUp:FireServer()
+	script.Parent.StrapUp:InvokeServer()
 end)
 
 tool.Unequipped:Connect(function()
@@ -58,9 +58,9 @@ UIS.InputBegan:Connect(function(input,chatting)
 	if not chatting and isActive == true then
 		print(accentsAllowed)
 		if input.KeyCode == Enum.KeyCode.G then
-			script.Parent.TalkToServer:FireServer(false,tostring("Left"))
+			script.Parent.TalkToServer:InvokeServer(false,tostring("Left"))
 		elseif input.KeyCode == Enum.KeyCode.H then
-			script.Parent.TalkToServer:FireServer(false,tostring("Right"))
+			script.Parent.TalkToServer:InvokeServer(false,tostring("Right"))
 		end
 	end
 end)
