@@ -109,11 +109,14 @@ local correctAudio = {
 local notes = script.Parent.Handle.Notes
 --Make so all the audios are up to date
 notes:ClearAllChildren()
+--Something is causing a duplication issue so we're gonna do a thing
 for i,v in pairs(correctAudio) do
-	local audio = Instance.new("Sound")
-	audio.Parent = notes
-	audio.Name = v.Name
-	audio.SoundId = v.ID
+	if not notes:FindFirstChild(v.Name) then
+		local audio = Instance.new("Sound")
+		audio.Parent = notes
+		audio.Name = v.Name
+		audio.SoundId = v.ID
+	end
 end
 
 

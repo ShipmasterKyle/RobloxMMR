@@ -19,7 +19,7 @@ function module:PlayNote(note)
 	if note then
 		if script.Parent.Handle.Notes:FindFirstChild(note) then
 			script.Parent.Handle.Notes[note].Volume = 1
-
+			script.Parent.Handle.Notes[note]:Play()
 		end
 	end
 end
@@ -29,6 +29,7 @@ function module:PlayAccent(note)
 	if note then
 		if script.Parent.Handle.Notes:FindFirstChild(note) then
 			script.Parent.Handle.Notes[note].Volume = 10
+			script.Parent.Handle.Notes[note]:Play() --Will be on the client only soon.
 		end
 	end
 end
