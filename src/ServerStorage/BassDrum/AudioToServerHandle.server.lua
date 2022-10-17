@@ -1,5 +1,5 @@
 --[[
-	AudioToServerHandle
+	AudioToClientHandle
 	Responsible for making and santizing audio
 	Written by Drgametime3d (aka ShipmasterKyle) 2022. 
 	Do not steal.
@@ -9,11 +9,11 @@
 local correctAudio = {
 	A = {
 		Name = "Left",
-		ID = "rbxassetid://9744434475"
+		ID = "rbxassetid://9744431486"
 	},
 	Ab = {
 		Name = "Right",
-		ID = "rbxassetid://9744434475"
+		ID = "rbxassetid://9744431486"
 	},
 	B = {
 		Name = "Click",
@@ -48,3 +48,4 @@ while wait(1) do
 		end
 	end
 end
+

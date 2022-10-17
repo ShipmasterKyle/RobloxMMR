@@ -14,11 +14,22 @@ local isActive = false
 local tool = script.Parent
 local copyBox = UI
 
-local hornsUp = script.Parent.Still
-local right = script.Parent.Right
-local left = script.Parent.Left
-local rightCent = script.Parent.RightAccent
-local leftCent = script.Parent.LeftAccent
+local canAnim = script.Parent.Animated --toggle whether the instrument uses animations
+--Blank anim vars for later
+local hornsUp
+local right
+local left
+local rightCent
+local leftCent
+
+if canAnim.Value == true then
+	hornsUp = script.Parent.Still
+	right = script.Parent.Right
+	left = script.Parent.Left
+	rightCent = script.Parent.RightAccent
+	leftCent = script.Parent.LeftAccent
+end
+
 local animationTrack
 
 local accentsAllowed = false
@@ -50,17 +61,22 @@ tool.Equipped:Connect(function()
 	isActive = true
 	print("Activated")
 	coroutine.resume(uiEvents)
-	script.Parent.StrapUp:FireServer()
-	animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(hornsUp)
-	animationTrack:Play()
-	print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
+	if canAnim.Value == true then
+		script.Parent.StrapUp:FireServer()
+		animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(hornsUp)
+		animationTrack:Play()
+		print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
+	end
 end)
 
 tool.Unequipped:Connect(function()
 	print("Deactivated")
 	isActive = false
 	script.Parent.HangUpAll:FireServer()
-	animationTrack:Stop()
+	if canAnim.Value == true then
+		script.Parent.CleanUp:FireServer()
+		animationTrack:Stop()
+	end
 	copyBox.Parent = workspace
 	coroutine.yield(uiEvents)
 end)
@@ -70,14 +86,18 @@ UIS.InputBegan:Connect(function(input,chatting)
 		print(accentsAllowed)
 		if input.KeyCode == Enum.KeyCode.G then
 			script.Parent.TalkToServer:FireServer(false,tostring("Left"))
-			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)
-			animationTrack:Play()
-			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
+			if canAnim.Value == true then
+				animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)
+				animationTrack:Play()
+				print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
+			end
 		elseif input.KeyCode == Enum.KeyCode.H then
 			script.Parent.TalkToServer:FireServer(false,tostring("Right"))
-			animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(right)
-			animationTrack:Play()
-			print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
+			if canAnim.Value == true then
+				animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(right)
+				animationTrack:Play()
+				print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
+			end
 		end
 	end
 end)

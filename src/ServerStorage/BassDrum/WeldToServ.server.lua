@@ -1,3 +1,9 @@
+--[[
+	WeldToServer
+	A mostly finished system for welding drums to players
+	Only runs if Animated is true.
+]]
+
 local eve = script.Parent.StrapUp
 local eva = script.Parent.CleanUp
 
