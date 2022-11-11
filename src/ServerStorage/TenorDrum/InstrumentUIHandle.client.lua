@@ -67,7 +67,7 @@ local uiEvents = coroutine.create(function()
 		for i,v in pairs(copyBox:GetDescendants()) do
 			if v:IsA("TextButton") then
 				v.MouseButton1Click:Connect(function()
-					if v.Name == "LoadAction" then
+					if v.Name == "LoadActions" then
 						method.Value = not method.Value
 						keyFrame.Visible = method.Value
 					end
