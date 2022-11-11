@@ -5,21 +5,62 @@
 	Do not steal.
 ]]
 
-local UI = script:WaitForChild("Instrument"):Clone()
+local UI = script:WaitForChild("Instrument")
 local method = script.Parent.MobileMode
 local keyFrame = UI.MainFrame.MobileMethod
 local UIS = game:GetService("UserInputService")
+local CAS = game:GetService("ContextActionService")
 local audioHandle = require(script.Parent.AudioHandle)
 local isActive = false
 local tool = script.Parent
-local copyBox = UI
+local copyBox
 
-local notes = {
-	"Left",
-	"Right"
-}
+local canAnim = script.Parent.Animated --toggle whether the instrument uses animations
+--Blank anim vars for later
+local hornsUp
+local Right
+local Left
+local RightA
+local LeftA
+
+if canAnim.Value == true then
+	hornsUp = script.Parent.Still
+	Right = script.Parent.Right
+	Left = script.Parent.Left
+	RightA = script.Parent.RightAccent
+	LeftA = script.Parent.LeftAccent
+end
+
+local animationTrack
 
 local accentsAllowed = false
+
+function playSound(Note, inputState)
+	print(Note)
+	if inputState == Enum.UserInputState.Begin then
+		if script.Parent.Handle.Notes:FindFirstChild(Note) then
+			audioHandle:PlayNote(Note)
+			script.Parent.Handle.Notes[Note]:Play()
+		end
+	end
+end
+
+function playAccent(note, inputState)
+	local Note = string.sub(note,1,#note-1) --Remove the A identifier from the String
+	print(Note)
+	if inputState == Enum.UserInputState.Begin then
+		if script.Parent.Handle.Notes:FindFirstChild(Note) then
+			audioHandle:PlayAccent(Note)
+			script.Parent.Handle.Notes[Note]:Play()
+		end
+	end
+end
+
+function stopAllSounds()
+	for _,v in pairs(script.Parent.Handle.Notes:GetChildren()) do
+		v:Stop()
+	end
+end
 
 local uiEvents = coroutine.create(function()
 	while wait(1) do
@@ -29,8 +70,24 @@ local uiEvents = coroutine.create(function()
 					if v.Name == "LoadAction" then
 						method.Value = not method.Value
 						keyFrame.Visible = method.Value
-                    elseif table.find(notes, v.Name) then
-                        script.Parent.TalkToServer:InvokeServer(v.Name)
+					end
+					if v.Name == "Left" or v.Name == "Right" then
+						script.Parent.TalkToServer:InvokeServer(false,tostring("Right"))
+						playSound(v.Name)
+						if canAnim.Value == true then
+							animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(v.Name)
+							animationTrack:Play()
+							print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
+						end
+					end
+					if v.Name == "LeftA" or v.Name == "RightA" then
+						script.Parent.TalkToServer:InvokeServer(true,tostring("Right"))
+						playAccent(v.Name)
+						if canAnim.Value == true then
+							animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(v.Name)
+							animationTrack:Play()
+							print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
+						end
 					end
 				end)
 			end
@@ -39,28 +96,34 @@ local uiEvents = coroutine.create(function()
 end)
 
 tool.Equipped:Connect(function()
+	copyBox = UI:Clone()
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
 	isActive = true
 	print("Activated")
+	if canAnim.Value == true then
+		script.Parent.StrapUp:InvokeServer()
+		animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(hornsUp)
+		animationTrack:Play()
+		print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
+	end
+	CAS:BindAction("Left",playSound,false,Enum.KeyCode.G)
+	CAS:BindAction("Right",playSound,false,Enum.KeyCode.H)
+	CAS:BindAction("LeftA",playAccent,false,Enum.KeyCode.F)
+	CAS:BindAction("RightA",playAccent,false,Enum.KeyCode.J)
 	coroutine.resume(uiEvents)
-	script.Parent.StrapUp:InvokeServer()
 end)
 
 tool.Unequipped:Connect(function()
 	print("Deactivated")
 	isActive = false
 	script.Parent.HangUpAll:FireServer()
-	copyBox.Parent = workspace
-	coroutine.yield(uiEvents)
-end)
-
-UIS.InputBegan:Connect(function(input,chatting)
-	if not chatting and isActive == true then
-		print(accentsAllowed)
-		if input.KeyCode == Enum.KeyCode.G then
-			script.Parent.TalkToServer:InvokeServer(false,tostring("Left"))
-		elseif input.KeyCode == Enum.KeyCode.H then
-			script.Parent.TalkToServer:InvokeServer(false,tostring("Right"))
-		end
+	if canAnim.Value == true then
+		animationTrack:Stop()
 	end
+	CAS:UnbindAction("Left")
+	CAS:UnbindAction("LeftA")
+	CAS:UnbindAction("Right")
+	CAS:UnbindAction("RightA")
+	copyBox:Destroy()
+	coroutine.yield(uiEvents)
 end)

@@ -7,7 +7,7 @@ local markTime = script.Parent.Conduct
 local fin = script.Parent.Signal
 local tool = script.Parent
 local copyBox
-local actions = copyBox.Actions
+local actions
 local animationTrack = nil
 local debound = false
 
@@ -84,11 +84,13 @@ end)
 
 tool.Equipped:Connect(function()
 	debound = false
+	copyBox = UI:Clone()
+	actions = copyBox.Actions
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
 	isActive = true
 	print("Activated")
 	CAS:BindAction("Whistle",Whistle,false,Enum.KeyCode.Q)
-	copyBox = UI:Clone()
+	
 	coroutine.resume(uiEvents)
 end)
 
