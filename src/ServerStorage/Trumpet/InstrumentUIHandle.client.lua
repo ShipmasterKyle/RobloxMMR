@@ -5,14 +5,14 @@
 	Do not steal.
 ]]
 
-local UI = script:WaitForChild("Instrument"):Clone()
+local UI = script:WaitForChild("Instrument")
 local method = script.Parent.MobileMode
 local keyFrame = UI.MainFrame.MobileMethod
 local UIS = game:GetService("UserInputService")
 local audioHandle = require(script.Parent.AudioHandle)
 local isActive = false
 local tool = script.Parent
-local copyBox = UI
+local copyBox = UI:Clone()
 local octave = script.Parent.Octave
 local minOct = 4
 local maxOct = 5
@@ -84,6 +84,7 @@ end)
 local accentsAllowed = false
 
 tool.Equipped:Connect(function()
+	copyBox = UI:Clone()
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
 	isActive = true
 	print("Activated")
@@ -92,9 +93,9 @@ end)
 
 tool.Unequipped:Connect(function()
 	print("Deactivated")
+	copyBox.Parent = nil
 	isActive = false
 	script.Parent.HangUpAll:FireServer()
-	copyBox.Parent = workspace
 	coroutine.yield(uiEvents)
 end)
 
