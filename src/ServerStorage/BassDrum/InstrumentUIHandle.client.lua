@@ -8,6 +8,7 @@
 local UI = script:WaitForChild("Instrument")
 local method = script.Parent.MobileMode
 local keyFrame = UI.MainFrame.MobileMethod
+local UIS = game:GetService("UserInputService")
 local CAS = game:GetService("ContextActionService")
 local audioHandle = require(script.Parent.AudioHandle)
 local isActive = false
@@ -17,17 +18,17 @@ local copyBox
 local canAnim = script.Parent.Animated --toggle whether the instrument uses animations
 --Blank anim vars for later
 local hornsUp
-local right
-local left
-local rightCent
-local leftCent
+local Right
+local Left
+local RightA
+local LeftA
 
 if canAnim.Value == true then
 	hornsUp = script.Parent.Still
-	right = script.Parent.Right
-	left = script.Parent.Left
-	rightCent = script.Parent.RightAccent
-	leftCent = script.Parent.LeftAccent
+	Right = script.Parent.Right
+	Left = script.Parent.Left
+	RightA = script.Parent.RightAccent
+	LeftA = script.Parent.LeftAccent
 end
 
 local animationTrack
@@ -71,19 +72,19 @@ local uiEvents = coroutine.create(function()
 						keyFrame.Visible = method.Value
 					end
 					if v.Name == "Left" or v.Name == "Right" then
-						script.Parent.TalkToServer:InvokeServer(false,tostring("Right")) --Do we need this anymore?
-						playSound("Right")
+						script.Parent.TalkToServer:InvokeServer(false,tostring("Right"))
+						playSound(v.Name)
 						if canAnim.Value == true then
-							animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)
+							animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(v.Name)
 							animationTrack:Play()
 							print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 						end
 					end
 					if v.Name == "LeftA" or v.Name == "RightA" then
-						script.Parent.TalkToServer:InvokeServer(false,tostring("Right")) --Do we need this anymore?
-						playSound("Left")
+						script.Parent.TalkToServer:InvokeServer(true,tostring("Right"))
+						playAccent(v.Name)
 						if canAnim.Value == true then
-							animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(left)
+							animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(v.Name)
 							animationTrack:Play()
 							print(game.Players.LocalPlayer.Character.Humanoid.Animator:GetPlayingAnimationTracks())
 						end
