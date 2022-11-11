@@ -14,10 +14,6 @@ local correctAudio = {
 	Ab = {
 		Name = "Right",
 		ID = "rbxassetid://9744431486"
-	},
-	B = {
-		Name = "Click",
-		ID = ''
 	}
 }
 

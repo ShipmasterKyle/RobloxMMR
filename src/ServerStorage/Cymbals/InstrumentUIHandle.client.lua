@@ -5,14 +5,14 @@
 	Do not steal.
 ]]
 
-local UI = script:WaitForChild("Instrument"):Clone()
+local UI = script:WaitForChild("Instrument")
 local method = script.Parent.MobileMode
 local keyFrame = UI.MainFrame.MobileMethod
-local UIS = game:GetService("UserInputService")
+local CAS = game:GetService("ContextActionService")
 local audioHandle = require(script.Parent.AudioHandle)
 local isActive = false
 local tool = script.Parent
-local copyBox = UI
+local copyBox
 
 local notes = {
 	"Crash",
@@ -36,28 +36,39 @@ local uiEvents = coroutine.create(function()
 	end
 end)
 
+function playSound(Note, inputState)
+	print(Note)
+	if inputState == Enum.UserInputState.Begin then
+		if script.Parent.Handle.Notes:FindFirstChild(Note) then
+			audioHandle:PlayNote(Note)
+			script.Parent.Handle.Notes[Note]:Play()
+		end
+	elseif inputState == Enum.UserInputState.End then
+		script.Parent.Handle.Notes[Note]:Stop()
+	end
+end
+
+function stopAllSounds()
+	for _,v in pairs(script.Parent.Handle.Notes:GetChildren()) do
+		v:Stop()
+	end
+end
+
 tool.Equipped:Connect(function()
+	copyBox = UI:Clone()
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
 	isActive = true
 	print("Activated")
 	coroutine.resume(uiEvents)
 	script.Parent.StrapUp:InvokeServer()
+	CAS:BindAction("Crash",playSound,false,Enum.KeyCode.Q)
+	CAS:BindAction("Choke",playSound,false,Enum.KeyCode.E)
 end)
 
 tool.Unequipped:Connect(function()
 	print("Deactivated")
 	isActive = false
 	script.Parent.HangUpAll:FireServer()
-	copyBox.Parent = workspace
+	copyBox:Destroy()
 	coroutine.yield(uiEvents)
-end)
-
-UIS.InputBegan:Connect(function(input,chatting)
-	if not chatting and isActive == true then
-		if input.KeyCode == Enum.KeyCode.E then
-			script.Parent.TalkToServer:InvokeServer("Crash")
-		elseif input.KeyCode == Enum.KeyCode.Q then
-			script.Parent.TalkToServer:InvokeServer("Choke")
-		end
-	end
 end)

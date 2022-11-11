@@ -1,35 +1,18 @@
-local UIS = game:GetService("UserInputService")
+local CAS = game:GetService("ContextActionService")
 local chat = game:GetService("Chat")
 
-local UI = script:WaitForChild("Instrument"):Clone()
+local UI = script:WaitForChild("Instrument")
 local tempo = script.Parent.Tempo
 local markTime = script.Parent.Conduct
 local fin = script.Parent.Signal
 local tool = script.Parent
-local copyBox = UI
+local copyBox
 local actions = copyBox.Actions
 local animationTrack = nil
 local debound = false
 
 --Commands List.
 local commandsList = require(script.Parent.Commands)
-
---Whistle Stuff
-UIS.InputBegan:Connect(function(input,e) --e detects if they are typing
-    if not e and isActive == true then
-		if input.KeyCode == Enum.KeyCode.E then
-			--Start Whistle
-            script.Parent.WhistleSound:FireServer()
-		end
-    end
-end)
-
-UIS.InputEnded:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.E then
-		--Stop Whistle
-        script.Parent.HangUp:FireServer()
-    end
-end)
 
 --Tempo Controller
 local uiEvents = coroutine.create(function()
@@ -65,10 +48,10 @@ local uiEvents = coroutine.create(function()
 					end)
 					if v.Name == "Whistle" then
 						v.MouseButton1Down:Connect(function()
-							script.Parent.WhistleSound:FireServer()
+							script.Parent.Notes.Whistle:Play()
 						end)
 						v.MouseButton1Up:Connect(function()
-							script.Parent.HangUp:FireServer()
+							script.Parent.Notes.Whistle:Stop()
 						end)
 					end
                 end
@@ -80,6 +63,13 @@ local uiEvents = coroutine.create(function()
 	end
 end)
 
+function Whistle(e,inputState)
+	if inputState == Enum.UserInputState.Begin then
+		script.Parent.Notes.Whistle:Play()
+	elseif inputState == Enum.UserInputState.End then
+		script.Parent.Notes.Whistle:Stop()
+	end
+end
 
 tempo.Changed:Connect(function()
 	--Set the animation speed
@@ -97,6 +87,8 @@ tool.Equipped:Connect(function()
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
 	isActive = true
 	print("Activated")
+	CAS:BindAction("Whistle",Whistle,false,Enum.KeyCode.Q)
+	copyBox = UI:Clone()
 	coroutine.resume(uiEvents)
 end)
 
@@ -109,6 +101,7 @@ tool.Unequipped:Connect(function()
 		animationTrack:Stop()
 		animationTrack = nil
 	end
-	copyBox.Parent = workspace
+	CAS:UnbindAction("Whistle")
+	copyBox:Destroy()
 	coroutine.yield(uiEvents)
 end)
