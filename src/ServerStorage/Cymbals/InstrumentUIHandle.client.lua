@@ -9,7 +9,6 @@ local UI = script:WaitForChild("Instrument")
 local method = script.Parent.MobileMode
 local keyFrame = UI.MainFrame.MobileMethod
 local CAS = game:GetService("ContextActionService")
-local audioHandle = require(script.Parent.AudioHandle)
 local isActive = false
 local tool = script.Parent
 local copyBox
@@ -40,7 +39,6 @@ function playSound(Note, inputState)
 	print(Note)
 	if inputState == Enum.UserInputState.Begin then
 		if script.Parent.Handle.Notes:FindFirstChild(Note) then
-			audioHandle:PlayNote(Note)
 			script.Parent.Handle.Notes[Note]:Play()
 		end
 	elseif inputState == Enum.UserInputState.End then
