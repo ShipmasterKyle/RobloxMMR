@@ -4,15 +4,15 @@
 	Written by Drgametime3d (aka ShipmasterKyle) 2022. 
 	Do not steal.
 ]]
-
-local UI = script:WaitForChild("Instrument"):Clone()
+local tool = script.Parent
+local handle = tool:WaitForChild("Handle")
+local UI = script:WaitForChild("Instrument")
 local method = script.Parent.MobileMode
 local keyFrame = UI.MainFrame.MobileMethod
-local UIS = game:GetService("UserInputService")
+local CAS = game:GetService("ContextActionService")
 local audioHandle = require(script.Parent.AudioHandle)
 local isActive = false
-local tool = script.Parent
-local copyBox = UI
+local copyBox
 local octave = script.Parent.Octave
 local minOct = 2
 local maxOct = 3
@@ -32,11 +32,11 @@ local notes = {
 	"G Flat"
 }
 
---Initialize the Counter
-octave.Value = minOct
-copyBox.MainFrame.OctaveCount.Text = octave.Value
 
 local uiEvents = coroutine.create(function()
+	--Initialize the Counter
+	octave.Value = minOct
+	copyBox.MainFrame.OctaveCount.Text = octave.Value
 	while wait(1) do
 		for i,v in pairs(copyBox:GetDescendants()) do
 			if v:IsA("TextButton") then
@@ -83,10 +83,59 @@ end)
 
 local accentsAllowed = false
 
+function playSound(note, inputState)
+	local Note = note.." "..octave.Value
+	print(Note)
+	if inputState == Enum.UserInputState.Begin then
+		if script.Parent.Handle.Notes:FindFirstChild(Note) then
+			if accentsAllowed == true then
+				audioHandle:PlayAccent(Note)
+			else
+				audioHandle:PlayNote(Note)
+			end
+			script.Parent.Handle.Notes[Note]:Play()
+		end
+	elseif inputState == Enum.UserInputState.End then
+		script.Parent.Handle.Notes[Note]:Stop()
+	end
+end
+
+function stopAllSounds()
+	for _,v in pairs(script.Parent.Handle.Notes:GetChildren()) do
+		v:Stop()
+	end
+end
+
+function changeOctave(note, inputState)
+	if inputState == Enum.UserInputState.Begin then
+		if note == "+" then
+			octave.Value += 1
+		elseif note == "-" then
+			octave.Value -= 1
+		end
+		stopAllSounds()
+	end
+end
+
 tool.Equipped:Connect(function()
+	copyBox = UI:Clone()
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
 	isActive = true
 	print("Activated")
+	CAS:BindAction("A Natural",playSound,false,Enum.KeyCode.Q)
+	CAS:BindAction("A Flat",playSound,false,Enum.KeyCode.Z)
+	CAS:BindAction("B Natural",playSound,false,Enum.KeyCode.E)
+	CAS:BindAction("B Flat",playSound,false,Enum.KeyCode.X)
+	CAS:BindAction("C Natural",playSound,false,Enum.KeyCode.R)
+	CAS:BindAction("D Natural",playSound,false,Enum.KeyCode.F)
+	CAS:BindAction("D Flat",playSound,false,Enum.KeyCode.V)
+	CAS:BindAction("E Natural",playSound,false,Enum.KeyCode.G)
+	CAS:BindAction("E Flat",playSound,false,Enum.KeyCode.B)
+	CAS:BindAction("F Natural",playSound,false,Enum.KeyCode.H)
+	CAS:BindAction("G Natural",playSound,false,Enum.KeyCode.J)
+	CAS:BindAction("G Flat",playSound,false,Enum.KeyCode.M)
+	CAS:BindAction("+",changeOctave,false,Enum.KeyCode.Equals)
+	CAS:BindAction("-",changeOctave,false,Enum.KeyCode.Minus)
 	coroutine.resume(uiEvents)
 end)
 
@@ -94,75 +143,20 @@ tool.Unequipped:Connect(function()
 	print("Deactivated")
 	isActive = false
 	script.Parent.HangUpAll:FireServer()
-	copyBox.Parent = workspace
+	CAS:UnbindAction("A Natural")
+	CAS:UnbindAction("B Natural")
+	CAS:UnbindAction("C Natural")
+	CAS:UnbindAction("D Natural")
+	CAS:UnbindAction("E Natural")
+	CAS:UnbindAction("F Natural")
+	CAS:UnbindAction("G Natural")
+	CAS:UnbindAction("A Flat")
+	CAS:UnbindAction("B Flat")
+	CAS:UnbindAction("D Flat")
+	CAS:UnbindAction("E Flat")
+	CAS:UnbindAction("G Flat")
+	CAS:UnbindAction("+")
+	CAS:UnbindAction("-")
+	copyBox:Destroy()
 	coroutine.yield(uiEvents)
-end)
-
-UIS.InputBegan:Connect(function(input,chatting)
-	if not chatting and isActive == true then
-		print(accentsAllowed)
-		if input.KeyCode == Enum.KeyCode.LeftShift then
-			accentsAllowed = true
-		elseif input.KeyCode == Enum.KeyCode.Q then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("A Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.Z then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("A Flat "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.E then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("B Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.X then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("B Flat "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.R then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("C Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.F then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("D Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.V then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("D Flat "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.G then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("E Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.B then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("E Flat "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.H then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("F Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.J then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("G Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.M then
-			script.Parent.TalkToServer:InvokeServer(accentsAllowed,tostring("G Flat "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.Equals or input.KeyCode == Enum.KeyCode.Plus then
-			octave.Value += 1
-		elseif input.KeyCode == Enum.KeyCode.Minus then
-			octave.Value -= 1
-		end
-	end
-end)
-
-UIS.InputEnded:Connect(function(input)
-	if isActive == true then
-		print("input ended")
-		accentsAllowed = false
-		if input.KeyCode == Enum.KeyCode.Q then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("A Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.Z then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("A Flat "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.E then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("B Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.X then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("B Flat "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.R then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("C Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.F then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("D Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.V then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("D Flat "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.G then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("E Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.B then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("E Flat "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.H then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("F Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.J then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("G Natural "..octave.Value))
-		elseif input.KeyCode == Enum.KeyCode.M then
-			script.Parent.HangUp:InvokeServer(accentsAllowed,tostring("G Flat "..octave.Value))
-		end
-	end
 end)

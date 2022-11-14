@@ -5,6 +5,9 @@
 	Do not steal.
 ]]
 
+--Define the tool from the top of the script
+local tool = script.Parent
+
 --Table for the correct audios seen in the audio group.
 local correctAudio = {
 	A = {
@@ -107,29 +110,20 @@ local correctAudio = {
 
 --The notes folder
 local notes = script.Parent.Handle.Notes
---Make so all the audios are up to date
-notes:ClearAllChildren()
-for i,v in pairs(correctAudio) do
-	local audio = Instance.new("Sound")
-	audio.Parent = notes
-	audio.Name = v.Name
-	audio.SoundId = v.ID
-end
 
-
-function find(array,item)
-	for i,v in pairs(array) do
-		if v.Name == item then
-			return v
-		else end
+tool.Equipped:Connect(function()
+	print("Prepping")
+	--Make so all the audios are up to date
+	-- notes:ClearAllChildren()  <-- Too Slow??
+	for i, v in notes:GetChildren() do
+		v:Destroy()
 	end
-	return false
-end
-
-while wait(1) do
-    for i,v in pairs(notes:GetChildren()) do
-		if find(correctAudio,v) then
-			v.SoundId = find(correctAudio,v).ID
-		end
+	for i,v in pairs(correctAudio) do
+		local audio = Instance.new("Sound")
+		audio.Parent = notes
+		audio.Name = v.Name
+		audio.SoundId = v.ID
+		print("Note "..v.Name.." has been prepped.")
 	end
-end
+	return true
+end)

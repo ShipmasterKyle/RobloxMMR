@@ -105,34 +105,28 @@ local correctAudio = {
 	}
 }
 
+--Define the tool from the top of the script
+local tool = script.Parent
+
 --The notes folder
 local notes = script.Parent.Handle.Notes
---Make so all the audios are up to date
-notes:ClearAllChildren()
---Something is causing a duplication issue so we're gonna do a thing
-for i,v in pairs(correctAudio) do
-	if not notes:FindFirstChild(v.Name) then
+function clean()
+	print("Prepping")
+	--Make so all the audios are up to date
+	-- notes:ClearAllChildren()  <-- Too Slow??
+	for i, v in notes:GetChildren() do
+		v:Destroy()
+	end
+	for i,v in pairs(correctAudio) do
 		local audio = Instance.new("Sound")
 		audio.Parent = notes
 		audio.Name = v.Name
 		audio.SoundId = v.ID
+		print("Note "..v.Name.." has been prepped.")
 	end
+	return true
 end
 
-
-function find(array,item)
-	for i,v in pairs(array) do
-		if v.Name == item then
-			return v
-		else end
-	end
-	return false
-end
-
-while wait(1) do
-    for i,v in pairs(notes:GetChildren()) do
-		if find(correctAudio,v) then
-			v.SoundId = find(correctAudio,v).ID
-		end
-	end
-end
+tool.Equipped:Connect(function()
+	clean()
+end)
