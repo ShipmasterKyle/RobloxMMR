@@ -18,7 +18,7 @@ end
 function module:PlayNote(note)
 	if note then
 		if script.Parent.Handle.Notes:FindFirstChild(note) then
-			script.Parent.Handle.Notes[note].Volume = 1
+			script.Parent.Handle.Notes[note]:Play()
 		end
 	end
 end
@@ -27,10 +27,12 @@ end
 function module:PlayAccent(note)
 	if note then
 		if script.Parent.Handle.Notes:FindFirstChild(note) then
+			script.Parent.Handle.Notes[note]:Play()
 			script.Parent.Handle.Notes[note].Volume = 2
 		end
 	end
 end
+
 
 --Stops a note from playing.
 function module:StopNote(note)
@@ -47,6 +49,14 @@ end
 function module:StopAllSounds(note)
 	for _,v in pairs(script.Parent.Handle.Notes:GetChildren()) do
 		v:Stop()
+	end
+end
+
+function module:SetOctave(Octave)
+	if Octave then
+		local currentOctave = script.Parent.Octave
+		currentOctave.Value = Octave
+		return currentOctave.Value
 	end
 end
 

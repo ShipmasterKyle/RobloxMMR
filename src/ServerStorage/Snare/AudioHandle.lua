@@ -20,7 +20,7 @@ function module:PlayNote(note)
 		if script.Parent.Handle.Notes:FindFirstChild(note) then
 			script.Parent.Handle.Notes[note].PlaybackSpeed = 1.4
 			script.Parent.Handle.Notes[note].Volume = 1
-			-- script.Parent.Handle.Notes[note]:Play()
+			script.Parent.Handle.Notes[note]:Play()
 		end
 	end
 end
@@ -31,7 +31,7 @@ function module:PlayAccent(note)
 		if script.Parent.Handle.Notes:FindFirstChild(note) then
 			script.Parent.Handle.Notes[note].PlaybackSpeed = 1.5
 			script.Parent.Handle.Notes[note].Volume = 10
-			-- script.Parent.Handle.Notes[note]:Play()
+			script.Parent.Handle.Notes[note]:Play()
 		end
 	end
 end
