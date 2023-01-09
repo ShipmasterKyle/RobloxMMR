@@ -14,6 +14,7 @@ local audioHandle = require(script.Parent.AudioHandle)
 local isActive = false
 local copyBox
 local octave = script.Parent.Octave
+local oldOctave = 1
 local minOct = 3
 local maxOct = 4
 
@@ -32,6 +33,72 @@ local notes = {
 	"G Flat"
 }
 
+
+--Collect the Change Signal for octaves and update the UI accordingly
+octave.Changed:Connect(function()
+	--Quick Sanity Check to make sure Octaves don't go over the octave limits
+	if octave.Value >= maxOct or octave.Value <= minOct then
+		if octave.Value > maxOct then
+			octave.Value = maxOct
+		end
+		if octave.Value < minOct then
+			octave.Value = minOct
+		end
+	end
+	copyBox.MainFrame.OctaveCount.Text = octave.Value
+end)
+
+local accentsAllowed = false
+
+function playSound(note, inputState)
+	local Note = note.." "..octave.Value
+	print(Note)
+	if inputState == Enum.UserInputState.Begin or inputState == true then
+		if script.Parent.Handle.Notes:FindFirstChild(Note) then
+			if accentsAllowed == true then
+				audioHandle:PlayAccent(Note)
+			else
+				audioHandle:PlayNote(Note)
+			end
+			script.Parent.Handle.Notes[Note]:Play()
+		end
+	elseif inputState == Enum.UserInputState.End or inputState == false then
+		script.Parent.Handle.Notes[Note]:Stop()
+	end
+end
+
+function stopAllSounds()
+	for _,v in pairs(script.Parent.Handle.Notes:GetChildren()) do
+		v:Stop()
+	end
+end
+
+function changeOctave(note, inputState)
+	if inputState == Enum.UserInputState.Begin then
+		if note == "+" then
+			octave.Value += 1
+		elseif note == "-" then
+			octave.Value -= 1
+		end
+		stopAllSounds()
+	end
+end
+
+function SwitchOctave(note, inputState)
+	if inputState == Enum.UserInputState.Begin then
+		oldOctave = octave.Value
+		if octave.Value < maxOct then
+			octave.Value += 1
+		else
+			octave.Value -= 1
+		end
+		stopAllSounds()
+	elseif inputState == Enum.UserInputState.End then
+		octave.Value = oldOctave
+	end
+end
+
+-- UI Function Moved here so it can access the functions above
 
 local uiEvents = coroutine.create(function()
 	--Initialize the Counter
@@ -54,68 +121,18 @@ local uiEvents = coroutine.create(function()
 				end)
 				v.MouseButton1Down:Connect(function()
 					if table.find(notes, v.Name) then
-						script.Parent.TalkToServer:InvokeServer(false,v.Name.." "..octave.Value)
+						playSound(v.Name,true)
 					end
 				end)
 				v.MouseButton1Up:Connect(function()
 					if table.find(notes, v.Name) then
-						script.Parent.HangUp:InvokeServer(false,v.Name.." "..octave.Value)
+						playSound(v.Name,false)
 					end
 				end)
 			end
 		end
 	end
 end)
-
---Collect the Change Signal for octaves and update the UI accordingly
-octave.Changed:Connect(function()
-	--Quick Sanity Check to make sure Octaves don't go over the octave limits
-	if octave.Value >= maxOct or octave.Value <= minOct then
-		if octave.Value > maxOct then
-			octave.Value = maxOct
-		end
-		if octave.Value < minOct then
-			octave.Value = minOct
-		end
-	end
-	copyBox.MainFrame.OctaveCount.Text = octave.Value
-end)
-
-local accentsAllowed = false
-
-function playSound(note, inputState)
-	local Note = note.." "..octave.Value
-	print(Note)
-	if inputState == Enum.UserInputState.Begin then
-		if script.Parent.Handle.Notes:FindFirstChild(Note) then
-			if accentsAllowed == true then
-				audioHandle:PlayAccent(Note)
-			else
-				audioHandle:PlayNote(Note)
-			end
-			script.Parent.Handle.Notes[Note]:Play()
-		end
-	elseif inputState == Enum.UserInputState.End then
-		script.Parent.Handle.Notes[Note]:Stop()
-	end
-end
-
-function stopAllSounds()
-	for _,v in pairs(script.Parent.Handle.Notes:GetChildren()) do
-		v:Stop()
-	end
-end
-
-function changeOctave(note, inputState)
-	if inputState == Enum.UserInputState.Begin then
-		if note == "+" then
-			octave.Value += 1
-		elseif note == "-" then
-			octave.Value -= 1
-		end
-		stopAllSounds()
-	end
-end
 
 tool.Equipped:Connect(function()
 	copyBox = UI:Clone()
@@ -136,6 +153,7 @@ tool.Equipped:Connect(function()
 	CAS:BindAction("G Flat",playSound,false,Enum.KeyCode.M)
 	CAS:BindAction("+",changeOctave,false,Enum.KeyCode.Equals)
 	CAS:BindAction("-",changeOctave,false,Enum.KeyCode.Minus)
+	CAS:BindAction("ShiftOctave",SwitchOctave,false,Enum.KeyCode.LeftShift)
 	coroutine.resume(uiEvents)
 end)
 
@@ -157,6 +175,7 @@ tool.Unequipped:Connect(function()
 	CAS:UnbindAction("G Flat")
 	CAS:UnbindAction("+")
 	CAS:UnbindAction("-")
+	CAS:UnbindAction("ShiftOctave")
 	copyBox:Destroy()
 	coroutine.yield(uiEvents)
 end)
