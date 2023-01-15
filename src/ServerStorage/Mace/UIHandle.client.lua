@@ -9,7 +9,6 @@ local fin = script.Parent.Signal
 local tool = script.Parent
 local CurrentHeadGui
 local currentCount = 1
-local comment = "Comment"
 local copyBox = UI
 local actions = copyBox.Actions
 local animationTrack = nil
@@ -66,10 +65,10 @@ local uiEvents = coroutine.create(function()
 end)
 
 local headGUIEvents = coroutine.create(function()
-    CurrentHeadGui.Comment.Text = comment
+	CurrentHeadGui.Comment.Text = copyBox.Frame.Whistle.Text
+	local numeral = 1/tempo.Value
 	repeat
-		wait(tempo.Value)
-		print(tempo.Value)
+		wait(numeral)
         print(currentCount)
         CurrentHeadGui.Tempo.Text = currentCount
         if currentCount ~= 4 then
@@ -90,6 +89,7 @@ tempo.Changed:Connect(function()
 	animationTrack = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(markTime)
 	animationTrack:Play()
     animationTrack:AdjustSpeed(tempo.Value)
+	CurrentHeadGui = headGUI:Clone()
     CurrentHeadGui.Parent = game.Players.LocalPlayer.Character.Head
     coroutine.resume(headGUIEvents)
 end)
@@ -97,7 +97,6 @@ end)
 tool.Equipped:Connect(function()
 	debound = false
 	copyBox.Parent = game.Players.LocalPlayer.PlayerGui
-    CurrentHeadGui = headGUI:Clone()
 	isActive = true
 	print("Activated")
 	coroutine.resume(uiEvents)
