@@ -17,7 +17,7 @@ local correctAudio = {
 	},
 	B = {
 		Name = "B Natural 2",
-		ID = "rbxassetid://10865254214"
+		ID = "rbxassetid://10865254214" --fix
 	},
 	Bb = {
 		Name = "B Flat 2",
